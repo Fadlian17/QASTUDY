@@ -130,3 +130,96 @@ T-Shirt Size digunakan untuk estimasi cepat kapasitas QA berdasarkan cakupan pen
 |                               | T.010  | OTHERS | |
 
 Gunakan table ini untuk melacak dan merencanakan kapasitas QA per sprint atau kuartal.
+
+## Capacity Planning Formulas
+
+### Rumus Dasar Kapasitas QA
+
+1. **Total Available Hours per Tester**:
+   - Formula: (Working Days per Month × Hours per Day) - Overhead
+   - Contoh: (20 hari × 8 jam) - 10% overhead = 144 jam efektif per bulan
+
+2. **Capacity Utilization Rate**:
+   - Formula: (Actual Hours Worked / Total Available Hours) × 100%
+   - Target: 80-90% untuk menghindari burnout
+
+3. **Test Execution Velocity**:
+   - Formula: Test Cases Completed per Hour
+   - Contoh: 5 test cases/jam untuk manual testing
+
+### Estimasi Kapasitas Berdasarkan T-Shirt Size
+
+- **S (Small)**: 20-40 jam QA effort
+- **M (Medium)**: 40-80 jam QA effort  
+- **L (Large)**: 80-160 jam QA effort
+- **XL (Extra Large)**: 160+ jam QA effort
+
+## Additional User Scenarios
+
+#### Skenario 3: IT Admin Manages User Access
+- **Aktor**: IT Admin
+- **Preconditions**: IT Admin sudah login dengan hak akses admin.
+- **Postconditions**: Pengguna baru ditambahkan atau akses pengguna diubah.
+- **Langkah-langkah Utama**:
+  1. IT Admin membuka halaman user management.
+  2. Memilih "Add New User" atau "Edit User".
+  3. Memasukkan detail pengguna (nama, email, role).
+  4. Menetapkan permissions berdasarkan role.
+  5. Sistem mengirim email konfirmasi ke pengguna baru.
+- **Alternatif/Exception**: Jika email sudah terdaftar, sistem menampilkan error.
+
+#### Skenario 4: System Admin Monitors Infrastructure
+- **Aktor**: System Admin
+- **Preconditions**: System Admin sudah login.
+- **Postconditions**: Status infrastruktur SaaS ditampilkan.
+- **Langkah-langkah Utama**:
+  1. System Admin mengakses dashboard infrastruktur.
+  2. Melihat metrics server (CPU, memory, disk usage).
+  3. Mengecek status services dan databases.
+  4. Jika ada alert, mengambil tindakan remedial.
+- **Alternatif/Exception**: Jika sistem down, menerima notifikasi otomatis.
+
+#### Skenario 5: QA Manager Generates Capacity Report
+- **Aktor**: QA Manager
+- **Preconditions**: Data capacity planning tersedia.
+- **Postconditions**: Laporan PDF/Excel dihasilkan.
+- **Langkah-langkah Utama**:
+  1. QA Manager memilih periode laporan.
+  2. Sistem mengumpulkan data dari berbagai sumber.
+  3. Menghasilkan visualisasi (charts, graphs).
+  4. QA Manager mengekspor laporan.
+- **Alternatif/Exception**: Jika data tidak lengkap, laporan menunjukkan disclaimer.
+
+## Tools and Technologies Recommendations
+
+### Diagram Tools
+- PlantUML: Untuk membuat use case diagrams
+- Draw.io: Alternatif gratis untuk diagram visual
+- Lucidchart: Tools berbasis cloud
+
+### Capacity Planning Tools
+- Jira: Untuk tracking tasks dan capacity
+- Excel/Google Sheets: Untuk kalkulasi manual
+- Custom dashboard dengan Python/Pandas untuk analisis data
+
+### Monitoring Tools
+- Grafana + Prometheus: Untuk real-time monitoring
+- New Relic atau Datadog: Application performance monitoring
+- ELK Stack: Untuk log analysis
+
+## Best Practices for Capacity Planning
+
+1. **Regular Reviews**: Lakukan review capacity planning mingguan.
+2. **Data-Driven Decisions**: Gunakan data historis untuk estimasi akurat.
+3. **Buffer Time**: Sisakan 20% buffer untuk unexpected issues.
+4. **Cross-Training**: Pastikan tim QA memiliki skill overlap.
+5. **Automation Focus**: Prioritaskan automation untuk repetitive tasks.
+6. **Stakeholder Communication**: Komunikasikan capacity constraints early.
+
+## Implementation Notes
+
+- Integrasikan dengan existing CI/CD pipeline
+- Gunakan API untuk data integration
+- Implement role-based access control
+- Pastikan scalability untuk multiple projects
+- Monitor KPIs: Test Coverage, Defect Leakage, Time to Market
