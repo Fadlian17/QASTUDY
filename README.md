@@ -23,7 +23,7 @@ Proyek ini adalah inisialisasi untuk sebuah aplikasi SaaS (Software as a Service
 
 ## Struktur Proyek
 - `/src`: Kode sumber aplikasi
-- `/docs`: Dokumentasi tambahan
+- `/docs`: Dokumentasi , Hasil Pola Fikir, Diskusi
 - `/tests`: Kode pengujian
 - `/config`: Konfigurasi aplikasi
 
