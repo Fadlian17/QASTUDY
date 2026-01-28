@@ -27,10 +27,14 @@ Proyek ini adalah inisialisasi untuk sebuah aplikasi SaaS (Software as a Service
 - `/tests`: Kode pengujian
 - `/config`: Konfigurasi aplikasi
 
+## Sample credentials:
+fadli / password123 (QA Manager)
+tester / pass123 (QA Tester)
+admin / admin123 (IT Admin)
+sysadmin / sys123 (System Admin)
+
+
 ## Cara Menjalankan
-1. Clone repository ini.
-2. Install dependencies: `npm install` atau `pip install -r requirements.txt`
-3. Jalankan aplikasi: `npm start` atau `python app.py`
 
 ## Kontribusi
 Silakan buat issue atau pull request untuk kontribusi.
