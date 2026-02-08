@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shift Left Testing - Interactive Implementation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -308,6 +310,40 @@
             color: #555;
         }
 
+        .tool-links {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tool-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+            text-decoration: none;
+            color: white;
+        }
+
+        .tool-link-icon {
+            font-size: 1em;
+        }
+
         /* TEMPLATE FORM */
         .form-grid {
             display: grid;
@@ -386,6 +422,17 @@
 
         .btn-secondary:hover {
             background: #e9ecef;
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
         }
 
         /* ALERTS */
@@ -794,6 +841,14 @@
                                 <span class="tool-tag">API Mocking</span>
                                 <span class="tool-tag">Contract Testing</span>
                             </div>
+                            <div class="tool-links">
+                                <a href="https://learning.postman.com/docs/designing-and-developing-your-api/mocking-data/setting-up-mock-server/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">📚</span> Documentation
+                                </a>
+                                <a href="https://www.postman.com/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">🌐</span> Website
+                                </a>
+                            </div>
                         </div>
                         <div class="tool-card">
                             <h4>MSW (Mock Service Worker)</h4>
@@ -802,6 +857,14 @@
                                 <span class="tool-tag">Frontend Mocking</span>
                                 <span class="tool-tag">Request Interception</span>
                             </div>
+                            <div class="tool-links">
+                                <a href="https://mswjs.io/docs/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">📚</span> Documentation
+                                </a>
+                                <a href="https://github.com/mswjs/msw" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">🔗</span> GitHub
+                                </a>
+                            </div>
                         </div>
                         <div class="tool-card">
                             <h4>Mirage.js</h4>
@@ -809,6 +872,14 @@
                             <div class="tool-tags">
                                 <span class="tool-tag">Data Mocking</span>
                                 <span class="tool-tag">Development</span>
+                            </div>
+                            <div class="tool-links">
+                                <a href="https://miragejs.com/docs/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">📚</span> Documentation
+                                </a>
+                                <a href="https://github.com/miragejs/miragejs" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">🔗</span> GitHub
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -824,6 +895,14 @@
                                 <span class="tool-tag">API Testing</span>
                                 <span class="tool-tag">Automation</span>
                             </div>
+                            <div class="tool-links">
+                                <a href="https://learning.postman.com/docs/getting-started/introduction/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">📚</span> Documentation
+                                </a>
+                                <a href="https://www.postman.com/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">🌐</span> Website
+                                </a>
+                            </div>
                         </div>
                         <div class="tool-card">
                             <h4>REST Client</h4>
@@ -832,6 +911,14 @@
                                 <span class="tool-tag">Manual Testing</span>
                                 <span class="tool-tag">Quick Testing</span>
                             </div>
+                            <div class="tool-links">
+                                <a href="https://marketplace.visualstudio.com/items?itemName=humao.rest-client" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">📚</span> Extension
+                                </a>
+                                <a href="https://github.com/Huachao/vscode-rest-client" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">🔗</span> GitHub
+                                </a>
+                            </div>
                         </div>
                         <div class="tool-card">
                             <h4>Swagger/OpenAPI</h4>
@@ -839,6 +926,30 @@
                             <div class="tool-tags">
                                 <span class="tool-tag">Contract Testing</span>
                                 <span class="tool-tag">Documentation</span>
+                            </div>
+                            <div class="tool-links">
+                                <a href="https://swagger.io/tools/swagger-ui/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">📚</span> Documentation
+                                </a>
+                                <a href="https://editor.swagger.io/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">🌐</span> Editor
+                                </a>
+                            </div>
+                        </div>
+                        <div class="tool-card">
+                            <h4>Insomnia</h4>
+                            <p>REST client untuk API testing, debugging, dan automation.</p>
+                            <div class="tool-tags">
+                                <span class="tool-tag">API Testing</span>
+                                <span class="tool-tag">REST Client</span>
+                            </div>
+                            <div class="tool-links">
+                                <a href="https://docs.insomnia.rest/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">📚</span> Documentation
+                                </a>
+                                <a href="https://insomnia.rest/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">🌐</span> Website
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -854,6 +965,14 @@
                                 <span class="tool-tag">E2E Testing</span>
                                 <span class="tool-tag">UI Testing</span>
                             </div>
+                            <div class="tool-links">
+                                <a href="https://docs.cypress.io/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">📚</span> Documentation
+                                </a>
+                                <a href="https://cypress.io/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">🌐</span> Website
+                                </a>
+                            </div>
                         </div>
                         <div class="tool-card">
                             <h4>Jest/Mocha</h4>
@@ -862,6 +981,14 @@
                                 <span class="tool-tag">Unit Testing</span>
                                 <span class="tool-tag">Frontend</span>
                             </div>
+                            <div class="tool-links">
+                                <a href="https://jestjs.io/docs/getting-started" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">📚</span> Jest Docs
+                                </a>
+                                <a href="https://mochajs.org/#getting-started" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">📚</span> Mocha Docs
+                                </a>
+                            </div>
                         </div>
                         <div class="tool-card">
                             <h4>Pytest</h4>
@@ -869,6 +996,14 @@
                             <div class="tool-tags">
                                 <span class="tool-tag">Backend Testing</span>
                                 <span class="tool-tag">API Testing</span>
+                            </div>
+                            <div class="tool-links">
+                                <a href="https://docs.pytest.org/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">📚</span> Documentation
+                                </a>
+                                <a href="https://github.com/pytest-dev/pytest" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">🔗</span> GitHub
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -884,6 +1019,14 @@
                                 <span class="tool-tag">Performance</span>
                                 <span class="tool-tag">Load Testing</span>
                             </div>
+                            <div class="tool-links">
+                                <a href="https://jmeter.apache.org/usermanual/index.html" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">📚</span> Documentation
+                                </a>
+                                <a href="https://jmeter.apache.org/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">🌐</span> Website
+                                </a>
+                            </div>
                         </div>
                         <div class="tool-card">
                             <h4>OWASP ZAP</h4>
@@ -892,6 +1035,14 @@
                                 <span class="tool-tag">Security</span>
                                 <span class="tool-tag">Scanning</span>
                             </div>
+                            <div class="tool-links">
+                                <a href="https://www.zaproxy.org/docs/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">📚</span> Documentation
+                                </a>
+                                <a href="https://www.zaproxy.org/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">🌐</span> Website
+                                </a>
+                            </div>
                         </div>
                         <div class="tool-card">
                             <h4>SonarQube</h4>
@@ -899,6 +1050,14 @@
                             <div class="tool-tags">
                                 <span class="tool-tag">Code Quality</span>
                                 <span class="tool-tag">Security</span>
+                            </div>
+                            <div class="tool-links">
+                                <a href="https://docs.sonarqube.org/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">📚</span> Documentation
+                                </a>
+                                <a href="https://www.sonarqube.org/" target="_blank" class="tool-link">
+                                    <span class="tool-link-icon">🌐</span> Website
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -989,7 +1148,7 @@
                     </div>
 
                     <div class="button-group">
-                        <button type="submit" class="btn btn-primary">✅ Submit Review</button>
+                        <button type="submit" class="btn btn-success">📄 Submit & Export PDF</button>
                         <button type="reset" class="btn btn-secondary">🔄 Reset</button>
                     </div>
                 </form>
@@ -1182,13 +1341,196 @@
             }
         }
 
-        // Form submission
+        // Form submission with PDF export
         document.getElementById('requirementForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Collect form data
+            const projectName = document.querySelector('input[placeholder="Nama proyek"]').value;
+            const reviewDate = document.querySelectorAll('input[type="date"]')[0].value;
+            const reviewer = document.querySelector('input[placeholder="QA Lead name"]').value;
+            
+            // Count checked items
             const checkedItems = this.querySelectorAll('input[type="checkbox"]:checked').length;
             const totalItems = this.querySelectorAll('input[type="checkbox"]').length;
-            alert(`✅ Review submitted!\n\nCompleted: ${checkedItems}/${totalItems} items`);
+            const completionRate = Math.round((checkedItems / totalItems) * 100);
+            
+            // Get backend and frontend ready dates
+            const backendDate = document.querySelectorAll('input[type="date"]')[1].value;
+            const frontendDate = document.querySelectorAll('input[type="date"]')[2].value;
+            const thirdPartyIntegration = document.querySelector('input[placeholder="Services, APIs, etc"]').value;
+            const risks = document.querySelector('textarea').value;
+            
+            // Get all checklist items status
+            const checklistStatus = {};
+            const checkboxes = this.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach((cb, index) => {
+                const label = cb.nextElementSibling.textContent;
+                checklistStatus[label] = cb.checked;
+            });
+            
+            // Generate PDF
+            generateRequirementReviewPDF({
+                projectName,
+                reviewDate,
+                reviewer,
+                checkedItems,
+                totalItems,
+                completionRate,
+                backendDate,
+                frontendDate,
+                thirdPartyIntegration,
+                risks,
+                checklistStatus
+            });
+            
+            alert(`✅ Review submitted!\n\nCompleted: ${checkedItems}/${totalItems} items (${completionRate}%)\n\n📄 PDF downloaded successfully!`);
         });
+
+        // Generate PDF function
+        function generateRequirementReviewPDF(data) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+            
+            // Colors
+            const primaryColor = [102, 126, 234];
+            const textColor = [51, 51, 51];
+            const successColor = [16, 185, 129];
+            const errorColor = [239, 68, 68];
+            
+            let yPosition = 20;
+            
+            // Header
+            doc.setFillColor(...primaryColor);
+            doc.rect(0, 0, 210, 40, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(24);
+            doc.text('Requirement Review Report', 105, 20, { align: 'center' });
+            doc.setFontSize(11);
+            doc.text('Shift Left Testing - QA Assessment', 105, 30, { align: 'center' });
+            
+            yPosition = 50;
+            
+            // Project Information
+            doc.setTextColor(...textColor);
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text('Project Information', 20, yPosition);
+            
+            yPosition += 10;
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'normal');
+            
+            const infoData = [
+                { label: 'Project Name:', value: data.projectName },
+                { label: 'Review Date:', value: data.reviewDate },
+                { label: 'Reviewed By:', value: data.reviewer },
+                { label: 'Completion Rate:', value: `${data.completionRate}% (${data.checkedItems}/${data.totalItems} items)` }
+            ];
+            
+            infoData.forEach(item => {
+                doc.setFont(undefined, 'bold');
+                doc.text(item.label, 20, yPosition);
+                doc.setFont(undefined, 'normal');
+                doc.text(item.value, 70, yPosition);
+                yPosition += 8;
+            });
+            
+            yPosition += 5;
+            
+            // Dependencies
+            doc.setFont(undefined, 'bold');
+            doc.setFontSize(14);
+            doc.text('Dependencies & Timelines', 20, yPosition);
+            
+            yPosition += 10;
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'normal');
+            
+            const depData = [
+                { label: 'Backend Ready:', value: data.backendDate || 'Not specified' },
+                { label: 'Frontend Ready:', value: data.frontendDate || 'Not specified' },
+                { label: 'Third-party Integration:', value: data.thirdPartyIntegration || 'None' }
+            ];
+            
+            depData.forEach(item => {
+                doc.setFont(undefined, 'bold');
+                doc.text(item.label, 20, yPosition);
+                doc.setFont(undefined, 'normal');
+                doc.text(item.value, 70, yPosition);
+                yPosition += 8;
+            });
+            
+            yPosition += 5;
+            
+            // Risks & Mitigation
+            if (data.risks) {
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(14);
+                doc.text('Risks & Mitigation', 20, yPosition);
+                
+                yPosition += 8;
+                doc.setFontSize(11);
+                doc.setFont(undefined, 'normal');
+                
+                const splitRisks = doc.splitTextToSize(data.risks, 170);
+                doc.text(splitRisks, 20, yPosition);
+                yPosition += (splitRisks.length * 5) + 5;
+            }
+            
+            // Checklist Summary
+            if (yPosition > 250) {
+                doc.addPage();
+                yPosition = 20;
+            }
+            
+            doc.setFont(undefined, 'bold');
+            doc.setFontSize(14);
+            doc.text('Requirement Details Checklist', 20, yPosition);
+            
+            yPosition += 10;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            
+            const checklistItems = Object.entries(data.checklistStatus);
+            checklistItems.forEach((item, index) => {
+                if (yPosition > 270) {
+                    doc.addPage();
+                    yPosition = 20;
+                }
+                
+                const [label, isChecked] = item;
+                const checkmark = isChecked ? '✓' : '✗';
+                const checkColor = isChecked ? successColor : errorColor;
+                
+                doc.setTextColor(...checkColor);
+                doc.text(checkmark, 20, yPosition);
+                
+                doc.setTextColor(...textColor);
+                const splitLabel = doc.splitTextToSize(label, 150);
+                doc.text(splitLabel, 28, yPosition);
+                
+                yPosition += (splitLabel.length * 5) + 3;
+            });
+            
+            // Footer
+            const pageCount = doc.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(9);
+                doc.setTextColor(150, 150, 150);
+                doc.text(
+                    `Page ${i} of ${pageCount}`,
+                    105,
+                    doc.internal.pageSize.getHeight() - 10,
+                    { align: 'center' }
+                );
+            }
+            
+            // Save PDF
+            const filename = `Requirement_Review_${data.projectName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+            doc.save(filename);
+        }
     </script>
 </body>
 </html>
