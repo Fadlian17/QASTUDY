@@ -294,6 +294,91 @@
             background: #f9f9f9;
         }
 
+        /* REAL USE CASES SECTION */
+        .usecase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .usecase-card {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .usecase-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .usecase-card.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        }
+
+        .usecase-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .usecase-icon {
+            font-size: 2em;
+        }
+
+        .usecase-card h3 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .usecase-card .app-name {
+            color: #999;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .usecase-details {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .usecase-card.active .usecase-details {
+            display: block;
+        }
+
+        .usecase-detail-item {
+            margin-bottom: 12px;
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .usecase-detail-item strong {
+            color: #333;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .feature-tag {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            margin-right: 5px;
+            margin-top: 5px;
+            color: #555;
+        }
+
         .badge {
             display: inline-block;
             padding: 5px 10px;
@@ -406,6 +491,7 @@
                 <div class="menu-item" onclick="showSection('monitoring')">📡 Monitoring</div>
                 <div class="menu-item" onclick="showSection('users')">👥 User Management</div>
                 <div class="menu-item" onclick="showSection('reports')">📋 Reports</div>
+                <div class="menu-item" onclick="showSection('real-usecases')">🌐 Real Use Cases</div>
                 <hr style="margin: 15px 0; border: none; border-top: 1px solid #ddd;">
                 <div class="menu-item" onclick="showSection('settings')">⚙️ Settings</div>
             </div>
@@ -1011,6 +1097,276 @@
                     </div>
                 </div>
 
+                <!-- SECTION: REAL USE CASES -->
+                <div class="dashboard-section" id="section-real-usecases">
+                    <h2>Real Use Cases - Login & Dashboard Patterns</h2>
+                    <p style="margin-bottom: 20px; color: #666;">Contoh implementasi login & dashboard dari aplikasi yang sudah berjalan di internet. Pelajari best practices dan patterns yang digunakan industry.</p>
+
+                    <div class="usecase-grid">
+                        <!-- JIRA Use Case -->
+                        <div class="usecase-card" onclick="toggleUseCase(this)">
+                            <div class="usecase-header">
+                                <span class="usecase-icon">🎯</span>
+                                <div>
+                                    <h3>Atlassian Jira</h3>
+                                    <span class="app-name">Project Management & Issue Tracking</span>
+                                </div>
+                            </div>
+                            <div class="usecase-details">
+                                <div class="usecase-detail-item">
+                                    <strong>🔐 Authentication:</strong>
+                                    SSO (SAML/OAuth), 2FA, API tokens, password-less login (Passkeys)
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>👥 Roles:</strong>
+                                    Admin, Project Manager, Developer, QA, Reporter, Viewer
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>📊 Dashboard:</strong>
+                                    Customizable widgets, issue filters, sprint board, activity feed
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>📱 Features:</strong>
+                                    <span class="feature-tag">Multi-tenant</span>
+                                    <span class="feature-tag">Mobile app</span>
+                                    <span class="feature-tag">Webhooks</span>
+                                    <span class="feature-tag">REST API</span>
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>🔗 Reference:</strong>
+                                    <a href="https://www.atlassian.com/software/jira" target="_blank" style="color: #667eea;">atlassian.com/jira</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- GitHub Use Case -->
+                        <div class="usecase-card" onclick="toggleUseCase(this)">
+                            <div class="usecase-header">
+                                <span class="usecase-icon">💻</span>
+                                <div>
+                                    <h3>GitHub</h3>
+                                    <span class="app-name">Version Control & Collaboration</span>
+                                </div>
+                            </div>
+                            <div class="usecase-details">
+                                <div class="usecase-detail-item">
+                                    <strong>🔐 Authentication:</strong>
+                                    OAuth, 2FA, SSH keys, GitHub App tokens, Passkeys
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>👥 Roles:</strong>
+                                    Owner, Admin, Maintainer, Developer, Triager, Viewer
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>📊 Dashboard:</strong>
+                                    Personalized feed, repos, issues, PRs, projects, discussions
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>📱 Features:</strong>
+                                    <span class="feature-tag">Code review</span>
+                                    <span class="feature-tag">CI/CD</span>
+                                    <span class="feature-tag">Security scanning</span>
+                                    <span class="feature-tag">Automation</span>
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>🔗 Reference:</strong>
+                                    <a href="https://github.com" target="_blank" style="color: #667eea;">github.com</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slack Use Case -->
+                        <div class="usecase-card" onclick="toggleUseCase(this)">
+                            <div class="usecase-header">
+                                <span class="usecase-icon">💬</span>
+                                <div>
+                                    <h3>Slack</h3>
+                                    <span class="app-name">Team Communication Platform</span>
+                                </div>
+                            </div>
+                            <div class="usecase-details">
+                                <div class="usecase-detail-item">
+                                    <strong>🔐 Authentication:</strong>
+                                    OAuth, SSO (SAML), MFA, SCIM, Magic links
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>👥 Roles:</strong>
+                                    Workspace Owner, Admin, Member, Guest, Limited Member
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>📊 Dashboard:</strong>
+                                    Message threads, channels, DMs, search, notifications, integrations
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>📱 Features:</strong>
+                                    <span class="feature-tag">Real-time sync</span>
+                                    <span class="feature-tag">File sharing</span>
+                                    <span class="feature-tag">Bot API</span>
+                                    <span class="feature-tag">App ecosystem</span>
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>🔗 Reference:</strong>
+                                    <a href="https://slack.com" target="_blank" style="color: #667eea;">slack.com</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Asana Use Case -->
+                        <div class="usecase-card" onclick="toggleUseCase(this)">
+                            <div class="usecase-header">
+                                <span class="usecase-icon">📋</span>
+                                <div>
+                                    <h3>Asana</h3>
+                                    <span class="app-name">Work Management Platform</span>
+                                </div>
+                            </div>
+                            <div class="usecase-details">
+                                <div class="usecase-detail-item">
+                                    <strong>🔐 Authentication:</strong>
+                                    OAuth, SAML SSO, Domain verification, IP whitelisting
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>👥 Roles:</strong>
+                                    Owner, Admin, Editor, Commenter, Guest, Viewer
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>📊 Dashboard:</strong>
+                                    Project views, timeline, calendar, workload, dashboards, portfolio
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>📱 Features:</strong>
+                                    <span class="feature-tag">Template library</span>
+                                    <span class="feature-tag">Dependencies</span>
+                                    <span class="feature-tag">Automation rules</span>
+                                    <span class="feature-tag">Reporting</span>
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>🔗 Reference:</strong>
+                                    <a href="https://asana.com" target="_blank" style="color: #667eea;">asana.com</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Google Workspace Use Case -->
+                        <div class="usecase-card" onclick="toggleUseCase(this)">
+                            <div class="usecase-header">
+                                <span class="usecase-icon">🔤</span>
+                                <div>
+                                    <h3>Google Workspace</h3>
+                                    <span class="app-name">Productivity & Collaboration Suite</span>
+                                </div>
+                            </div>
+                            <div class="usecase-details">
+                                <div class="usecase-detail-item">
+                                    <strong>🔐 Authentication:</strong>
+                                    OAuth 2.0, 2-Step verification, SAML, SCIM, Security keys
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>👥 Roles:</strong>
+                                    Super Admin, User Admin, Group Admin, Org Manager, User
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>📊 Dashboard:</strong>
+                                    Gmail inbox, Drive files, Docs/Sheets, Calendar, Meet, Chat
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>📱 Features:</strong>
+                                    <span class="feature-tag">Real-time collab</span>
+                                    <span class="feature-tag">Version history</span>
+                                    <span class="feature-tag">Access controls</span>
+                                    <span class="feature-tag">Add-ons</span>
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>🔗 Reference:</strong>
+                                    <a href="https://workspace.google.com" target="_blank" style="color: #667eea;">workspace.google.com</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Trello Use Case -->
+                        <div class="usecase-card" onclick="toggleUseCase(this)">
+                            <div class="usecase-header">
+                                <span class="usecase-icon">🗂️</span>
+                                <div>
+                                    <h3>Trello</h3>
+                                    <span class="app-name">Visual Task Management</span>
+                                </div>
+                            </div>
+                            <div class="usecase-details">
+                                <div class="usecase-detail-item">
+                                    <strong>🔐 Authentication:</strong>
+                                    OAuth, 2FA, SAML, API tokens, Google/Slack login
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>👥 Roles:</strong>
+                                    Admin, Normal member, Observer, Guest
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>📊 Dashboard:</strong>
+                                    Boards, lists, cards, filters, calendar, timeline, dashboard
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>📱 Features:</strong>
+                                    <span class="feature-tag">Drag-drop UX</span>
+                                    <span class="feature-tag">Power-ups</span>
+                                    <span class="feature-tag">Automation</span>
+                                    <span class="feature-tag">Integrations</span>
+                                </div>
+                                <div class="usecase-detail-item">
+                                    <strong>🔗 Reference:</strong>
+                                    <a href="https://trello.com" target="_blank" style="color: #667eea;">trello.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 30px; margin-bottom: 15px;">🎯 Key QA Testing Points dari Real Use Cases</h3>
+                    <div style="background: #f0f0f0; padding: 20px; border-radius: 10px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <h4 style="color: #667eea; margin-bottom: 10px;">✅ Login Testing</h4>
+                                <ul style="margin-left: 20px; color: #666;">
+                                    <li>Multiple auth methods (OAuth, SAML, 2FA)</li>
+                                    <li>Social login integration</li>
+                                    <li>Email verification flows</li>
+                                    <li>Password reset mechanisms</li>
+                                    <li>Account lockout after failed attempts</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="color: #667eea; margin-bottom: 10px;">📊 Dashboard Testing</h4>
+                                <ul style="margin-left: 20px; color: #666;">
+                                    <li>Customizable widgets & layouts</li>
+                                    <li>Real-time data updates</li>
+                                    <li>Role-based content visibility</li>
+                                    <li>Performance under load</li>
+                                    <li>Cross-device responsiveness</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="color: #667eea; margin-bottom: 10px;">🔐 Security Testing</h4>
+                                <ul style="margin-left: 20px; color: #666;">
+                                    <li>XSS prevention</li>
+                                    <li>CSRF token validation</li>
+                                    <li>SQL injection prevention</li>
+                                    <li>Session hijacking protection</li>
+                                    <li>Sensitive data encryption</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="color: #667eea; margin-bottom: 10px;">♿ Accessibility Testing</h4>
+                                <ul style="margin-left: 20px; color: #666;">
+                                    <li>Keyboard navigation</li>
+                                    <li>Screen reader compatibility</li>
+                                    <li>Color contrast ratios</li>
+                                    <li>ARIA labels & descriptions</li>
+                                    <li>Focus management</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- SECTION: SETTINGS -->
                 <div class="dashboard-section" id="section-settings">
                     <h2>Settings</h2>
@@ -1118,6 +1474,15 @@
 
             // Add active to clicked menu item
             event.target.classList.add('active');
+        }
+
+        function toggleUseCase(card) {
+            // Close other cards
+            document.querySelectorAll('.usecase-card').forEach(c => {
+                if (c !== card) c.classList.remove('active');
+            });
+            // Toggle current card
+            card.classList.toggle('active');
         }
 
         function getRoleLabel(role) {
