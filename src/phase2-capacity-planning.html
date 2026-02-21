@@ -257,6 +257,52 @@
             font-size: 0.9em;
         }
 
+        /* NAVIGATION BUTTONS */
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 0.95em;
+        }
+
+        .nav-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .nav-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .nav-btn-secondary:hover {
+            background: #e0e0e0;
+            border-color: #667eea;
+        }
+
         /* RESOURCE ALLOCATION TABLE */
         .table-wrapper {
             overflow-x: auto;
@@ -444,6 +490,8 @@
                 <div class="menu-item" onclick="showSection('resource-allocation')">👥 Resource Allocation</div>
                 <div class="menu-item" onclick="showSection('sprint-planning')">🎯 Sprint Planning</div>
                 <div class="menu-item" onclick="showSection('existing-plans')">📋 Existing Plans</div>
+                <hr style="margin: 15px 0; border: none; border-top: 1px solid #ddd;">
+                <div class="menu-item" onclick="showSection('settings')">⚙️ Settings</div>
             </div>
 
             <!-- MAIN CONTENT -->
@@ -969,6 +1017,45 @@
                         </table>
                     </div>
                 </div>
+
+                <!-- SETTINGS SECTION -->
+                <div class="section" id="section-settings">
+                    <h2>Settings</h2>
+                    <h3 style="margin-top: 20px; margin-bottom: 15px;">Your Profile</h3>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 12px; font-weight: 600; width: 200px;">Username</td>
+                                <td style="padding: 12px;">fadli</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 12px; font-weight: 600;">Role</td>
+                                <td style="padding: 12px;">QA Manager</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 12px; font-weight: 600;">Email</td>
+                                <td style="padding: 12px;">fadli@company.com</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 12px; font-weight: 600;">Department</td>
+                                <td style="padding: 12px;">Quality Assurance</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; font-weight: 600;">Last Login</td>
+                                <td style="padding: 12px;">21 Feb 2026, 10:30 AM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="nav-buttons">
+                        <button class="nav-btn nav-btn-secondary" onclick="goToPhase1()" title="Back to Phase 1">
+                            ⬅️ Back to Phase 1
+                        </button>
+                        <button class="nav-btn nav-btn-primary" onclick="goToShiftLeft()" title="Explore Shift Left Testing">
+                            🚀 Go to Shift Left Testing
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1035,12 +1122,13 @@
             this.reset();
         });
 
-        // Back to Phase 1
-        function backToPhase1() {
-            if (confirm('Kembali ke Phase 1 (Login & Dashboard)?')) {
-                // Save reference to phase 1 file location
-                window.location.href = './phase1-login-dashboard.html';
-            }
+        // Navigation functions
+        function goToPhase1() {
+            window.location.href = 'phase1-access-use_case.html';
+        }
+
+        function goToShiftLeft() {
+            window.location.href = 'shift-left-testing.html';
         }
     </script>
 </body>

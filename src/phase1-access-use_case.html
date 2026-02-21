@@ -402,6 +402,52 @@
             color: white;
         }
 
+        /* NAVIGATION BUTTONS */
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 0.95em;
+        }
+
+        .nav-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .nav-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .nav-btn-secondary:hover {
+            background: #e0e0e0;
+            border-color: #667eea;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .login-container {
@@ -638,7 +684,7 @@
                                 </tr>
                                 <tr>
                                     <td style="padding: 8px 0;"><strong>QA Manager:</strong></td>
-                                    <td style="padding: 8px 0;">Fadli Pratama</td>
+                                    <td style="padding: 8px 0;">Fadli QA</td>
                                 </tr>
                             </table>
                         </div>
@@ -1391,6 +1437,15 @@
                             </tr>
                         </tbody>
                     </table>
+
+                    <div class="nav-buttons">
+                        <button class="nav-btn nav-btn-primary" onclick="goToPhase2()" title="Explore Phase 2 - Capacity Planning">
+                            📊 Go to Phase 2
+                        </button>
+                        <button class="nav-btn nav-btn-primary" onclick="goToShiftLeft()" title="Explore Shift Left Testing">
+                            🚀 Go to Shift Left Testing
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1399,7 +1454,7 @@
     <script>
         // Sample login credentials
         const validUsers = {
-            'fadli': { password: 'password123', role: 'qa-manager', fullName: 'Fadli Pratama' },
+            'fadli': { password: 'password123', role: 'qa-manager', fullName: 'Fadli QA' },
             'tester': { password: 'pass123', role: 'qa-tester', fullName: 'Tester User' },
             'admin': { password: 'admin123', role: 'it-admin', fullName: 'Admin IT' },
             'sysadmin': { password: 'sys123', role: 'system-admin', fullName: 'System Admin' }
@@ -1502,6 +1557,15 @@
                 showDashboard();
             }
         });
+
+        // Navigation functions
+        function goToPhase2() {
+            window.location.href = 'phase2-capacity-planning.html';
+        }
+
+        function goToShiftLeft() {
+            window.location.href = 'shift-left-testing.html';
+        }
     </script>
 </body>
 </html>
