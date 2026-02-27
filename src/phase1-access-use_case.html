@@ -135,6 +135,16 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
+        /* mobile menu button */
+        #mobileMenuBtn {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 1.5em;
+            color: white;
+            cursor: pointer;
+        }
+
         .dashboard-header h1 {
             font-size: 1.8em;
         }
@@ -479,6 +489,37 @@
                 padding: 20px;
             }
 
+            #mobileMenuBtn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                left: 20px;
+            }
+
+            .sidebar {
+                position: absolute;
+                top: 60px;
+                left: -260px;
+                width: 220px;
+                height: calc(100% - 60px);
+                background: white;
+                transition: left 0.3s;
+                z-index: 100;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .dashboard-content {
+                flex-direction: column;
+                margin: 20px 10px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -521,7 +562,8 @@
     <!-- DASHBOARD SCREEN -->
     <div class="dashboard-container" id="dashboardScreen">
         <div class="dashboard-header">
-            <h1>🎯 QA Capacity Planning Dashboard</h1>
+                <button id="mobileMenuBtn" onclick="toggleSidebar()" aria-label="Toggle menu">☰</button>
+                <h1>🎯 QA Capacity Planning Dashboard</h1>
             <div class="user-info">
                 <div class="user-avatar" id="userInitial">U</div>
                 <span id="userName">User</span>
@@ -1506,6 +1548,16 @@
             document.getElementById('dashboardScreen').style.display = 'block';
         }
 
+        // mobile sidebar toggle
+        function toggleSidebar() {
+            const sb = document.querySelector('.sidebar');
+            if (sb.classList.contains('open')) {
+                sb.classList.remove('open');
+            } else {
+                sb.classList.add('open');
+            }
+        }
+
         function logout() {
             if (confirm('Apakah Anda yakin ingin logout?')) {
                 sessionStorage.removeItem('currentUser');
@@ -1529,6 +1581,12 @@
 
             // Add active to clicked menu item
             event.target.classList.add('active');
+
+            // if mobile sidebar is open, close it after navigating
+            const sb = document.querySelector('.sidebar');
+            if (sb && sb.classList.contains('open')) {
+                sb.classList.remove('open');
+            }
         }
 
         function toggleUseCase(card) {
