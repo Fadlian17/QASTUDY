@@ -6,7 +6,7 @@ Template ini dirancang untuk mendokumentasikan exploratory testing dengan menggu
 ---
 
 ## 1. Risk Assessment & Prioritization
-
+docs.google.com/f
 ### Identifikasi Risk
 Sebelum melakukan exploratory test, identifikasi risiko potensial:
 
