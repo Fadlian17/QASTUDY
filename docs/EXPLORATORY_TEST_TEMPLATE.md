@@ -1,252 +1,559 @@
-# Template Exploratory Test dengan QA Guard Framework
+# Template Exploratory Test - QA Guard Framework
 
 ## Deskripsi
-Template ini dirancang untuk mendokumentasikan exploratory testing dengan menggunakan kerangka berfikir **QA Guard**. QA Guard adalah framework yang fokus pada risk-based testing, severity assessment, dan quality gates untuk memastikan kualitas produk secara menyeluruh.
+Template ini membantu Anda melakukan exploratory testing dengan **QA Guard Framework**. QA Guard fokus pada 3 hal: identifikasi risiko lebih awal, penilaian dampak bug, dan quality gates untuk memastikan produk siap launch.
+
+---
+
+## 📊 Flow Exploratory Testing
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     MULAI TESTING                           │
+└────────────────────┬────────────────────────────────────────┘
+                     │
+        ┌────────────▼────────────┐
+        │  GATE 1: PRE-TESTING    │ ← Siap?
+        │ (Persiapan & Planning)  │
+        └────────────┬────────────┘
+                     │
+        ┌────────────▼────────────────┐
+        │  Identifikasi Risk Areas    │
+        │  (Apa yg paling berisiko?)  │
+        └────────────┬────────────────┘
+                     │
+        ┌────────────▼────────────────┐
+        │  GATE 2: DURING-TESTING     │
+        │  (Eksekusi & Dokumentasi)   │
+        └────────────┬────────────────┘
+                     │
+        ┌────────────▼────────────────┐
+        │  Jalankan Test Scenarios    │
+        │  Catat Pass/Fail & Bugs     │
+        └────────────┬────────────────┘
+                     │
+        ┌────────────▼────────────────┐
+        │  Cukup Coverage? (80%+)      │
+        └────┬───────────────┬────────┘
+             │ Tidak         │ Ya
+             │               │
+        ┌────▼───────┐   ┌───▼──────────────┐
+        │ Lanjut Test │   │ GATE 3: POST     │
+        └────┬───────┘   │ (Evaluasi Hasil) │
+             │           └───┬──────────────┘
+             │               │
+             └───────┬───────┘
+                     │
+        ┌────────────▼────────────────┐
+        │  Analisis Bugs & Severity   │
+        │  (Critical? High? Medium?)   │
+        └────────────┬────────────────┘
+                     │
+        ┌────────────▼────────────────┐
+        │  Buat Laporan & Rekomendasi │
+        └────────────┬────────────────┘
+                     │
+        ┌────────────▼────────────────┐
+        │  Quality Gate Decision       │
+        │  PASS / FAIL / CONDITIONAL  │
+        └────────────┬────────────────┘
+                     │
+        ┌────────────▼────────────────┐
+        │   SELESAI TESTING           │
+        └────────────────────────────┘
+```
+
+---
+
+## Penyederhanaan Bahasa & Struktur:
+
+**Perubahan Utama:**
+- ✅ Menghilangkan kata-kata berbelit: "menggunakan kerangka berfikir" → langsung "QA Guard Framework"
+- ✅ Istilah lebih sederhana: "Severity Levels Classification" → "Dampak Bug Seperti Apa?"
+- ✅ Menggunakan emoji untuk visual cepat (🔴 KRITIS, 🟠 TINGGI, 🟡 SEDANG, 🟢 RENDAH)
+- ✅ Tabel lebih ringkas dengan kolom yang essential saja
+- ✅ Checklist lebih action-oriented
+- ✅ Pertanyaan yang praktis bukan formal
+
+---
+
+## 📈 Visual Flow: Risk Assessment Process
+
+```
+IDENTIFIKASI RISIKO
+│
+├─ Apa fitur paling penting?
+├─ Apa yang paling banyak user pakai?
+├─ Apa yang paling rentan error?
+│
+└─> Daftar Risk Area
+    │
+    ├─ Login/Auth
+    ├─ Data Save/Load
+    ├─ Payment (jika ada)
+    ├─ Security
+    └─ Performance
+        │
+        └─> PRIORITAS TESTING ✓
+```
+
+### Risk vs Severity - Perbedaan
+
+```
+┌──────────────────────────────────────┐
+│ RISK = Kemungkinan terjadi           │
+├──────────────────────────────────────┤
+│ - High Risk: Sering terjadi          │
+│ - Medium Risk: Kadang terjadi        │
+│ - Low Risk: Jarang terjadi           │
+└──────────────────────────────────────┘
+           ×
+┌──────────────────────────────────────┐
+│ SEVERITY = Dampak kalau terjadi      │
+├──────────────────────────────────────┤
+│ - KRITIS: Produk rusak total         │
+│ - TINGGI: Fitur utama tidak jalan    │
+│ - SEDANG: Fitur minor error          │
+│ - RENDAH: Minor issue                │
+└──────────────────────────────────────┘
+           =
+    RISK LEVEL (Priority)
+    
+Contoh:
+- High Risk × Low Severity = Test nanti
+- Low Risk × Critical Severity = Test dulu!
+```
 
 ---
 
 ## 1. Risk Assessment & Prioritization
-docs.google.com/f
-### Identifikasi Risk
-Sebelum melakukan exploratory test, identifikasi risiko potensial:
 
-| Risk ID | Risk Area | Deskripsi | Severity | Probability | Risk Level |
-|---------|-----------|-----------|----------|-------------|-----------|
-| R001 | Data Loss | Kehilangan data saat save operation | Critical | High | **CRITICAL** |
-| R002 | Performance | Response time lambat saat load data besar | High | Medium | **HIGH** |
-| R003 | Security | Akses unauthorized ke data sensitif | Critical | Low | **HIGH** |
-| R004 | User Experience | UI tidak responsif di mobile | Medium | High | **MEDIUM** |
-| R005 | Data Integrity | Duplikasi data pada concurrent operations | High | Medium | **HIGH** |
+### Langkah 1: Identifikasi Risiko
+Sebelum testing, identifikasi apa saja yang bisa gagal dan dampaknya:
 
-### Severity Levels (QA Guard Classification)
-- **CRITICAL**: Produk tidak bisa digunakan / data loss / security breach
-- **HIGH**: Fitur utama tidak berfungsi / performa buruk
-- **MEDIUM**: Fitur minor tidak berfungsi / UX issues
-- **LOW**: Kosmetik / minor UI issues
+| ID | Area | Masalah Potensial | Dampak | Kemungkinan | Level |
+|---|---|---|---|---|---|
+| R001 | Data | Hilang saat save | Critical | Tinggi | 🔴 KRITIS |
+| R002 | Performa | Loading lambat | Tinggi | Sedang | 🟠 TINGGI |
+| R003 | Security | Akses tanpa izin | Critical | Rendah | 🟠 TINGGI |
+| R004 | Mobile | Tidak responsif | Sedang | Tinggi | 🟡 SEDANG |
+| R005 | Data | Duplikasi data | Tinggi | Sedang | 🟠 TINGGI |
 
----
-
-## 2. Test Scope & Areas
-
-### Primary Test Areas
-Fokus pada area-area kritis berdasarkan risk assessment:
-
-```
-🔴 CRITICAL AREAS (High Priority)
-├─ Login & Authentication
-├─ Data Persistence & Storage
-├─ Core Business Logic
-├─ Payment/Transaction Processing
-└─ Security & Access Control
-
-🟡 HIGH PRIORITY AREAS
-├─ Performance & Load
-├─ API Integration
-├─ Error Handling
-└─ User Workflows
-
-🟢 MEDIUM PRIORITY AREAS
-├─ UI/UX Responsiveness
-├─ Accessibility
-├─ Documentation
-└─ Edge Cases
-```
+### Severity: Dampak Bug Seperti Apa?
+- 🔴 **KRITIS**: Produk tidak bisa dipakai / data hilang / kebocoran data
+- 🟠 **TINGGI**: Fitur utama tidak jalan / lambat parah
+- 🟡 **SEDANG**: Fitur minor bermasalah / UX jelek
+- 🟢 **RENDAH**: Typo / icon bergeser
 
 ---
 
-## 3. QA Guard Checkpoints
+## 2. Area Testing
 
-### Pre-Testing Checkpoint (Gate 1)
-Sebelum memulai exploratory test, pastikan:
-- [ ] Requirements jelas dan terdokumentasi
-- [ ] Environment stable dan dapat diakses
-- [ ] Test data siap tersedia
-- [ ] Risk assessment sudah dilakukan
-- [ ] Severity levels sudah didefinisikan
+### Prioritas Area Testing
+Fokus testing sesuai risiko dari tinggi ke rendah:
 
-### During-Testing Checkpoint (Gate 2)
-Selama exploratory test:
-- [ ] Dokumentasikan setiap test case yang dijalankan
-- [ ] Catat hasil (pass/fail) dengan bukti
-- [ ] Identifikasi bug dan klassifikasi severity
-- [ ] Lakukan follow-up testing untuk bugs
-- [ ] Monitor coverage vs risk area
+```
+🔴 KRITIS - Test Duluan!
+├─ Login & Autentikasi
+├─ Simpan & Load Data
+├─ Fitur Utama (core feature)
+├─ Payment (jika ada)
+└─ Keamanan Data
 
-### Post-Testing Checkpoint (Gate 3)
-Setelah exploratory test:
-- [ ] Semua critical bugs sudah dilaporkan
-- [ ] Coverage mencapai minimal 80% untuk critical areas
-- [ ] Risk exposure sudah mitigated
-- [ ] Quality gate criteria terpenuhi
-- [ ] Report & recommendation sudah disiapkan
+🟠 TINGGI - Penting
+├─ Kecepatan Loading
+├─ Integrasi API
+├─ Pesan Error
+└─ Alur User
+
+🟡 SEDANG - Bisa Kemudian
+├─ Tampilan Mobile
+├─ Aksesibilitas
+└─ Kasus Khusus
+```
+
+### Flow Testing by Priority
+
+```
+START
+  │
+  ├─→ [KRITIS] Testing 1 jam
+  │
+  ├─→ [TINGGI] Testing 30 menit
+  │
+  ├─→ [SEDANG] Testing 20 menit
+  │
+  └─→ Analisis & Laporan
+      │
+      └─→ SELESAI
+```
+
+### Flow: Dari Risk Area → Test Cases
+
+```
+RISK AREA
+   │
+   ├─ Login & Auth
+   │    └─→ Test Case 1: Valid credential
+   │    └─→ Test Case 2: Invalid password
+   │    └─→ Test Case 3: SQL injection
+   │    └─→ Test Case 4: Brute force attempt
+   │
+   ├─ Data Save
+   │    └─→ Test Case 1: Save normal data
+   │    └─→ Test Case 2: Save large data
+   │    └─→ Test Case 3: Save with timeout
+   │    └─→ Test Case 4: Save duplicate
+   │
+   └─ Performance
+        └─→ Test Case 1: Normal load
+        └─→ Test Case 2: Heavy load
+        └─→ Test Case 3: Slow network
+```
 
 ---
 
-## 4. Test Execution Template
+---
 
-### Session Header
-```
-Session ID: [Unique Identifier]
-Tester: [Nama QA]
-Date: [Tanggal]
-Duration: [Waktu testing dalam jam]
-Risk Area Focus: [Area utama yang ditest]
-Test Size: S / M / L / XL [Sesuai capacity]
-```
+## 3. 3 Quality Gates
 
-### Test Scenarios & Findings
+Exploratory testing harus melewati 3 checkpoint untuk pastikan kualitas:
 
-| Scenario ID | Scenario Description | Test Steps | Expected Result | Actual Result | Status | Bug ID | Severity |
-|-------------|----------------------|------------|-----------------|---------------|--------|--------|----------|
-| S001 | User login dengan credential valid | 1. Buka login page 2. Masukkan username & password 3. Klik login | Berhasil login & redirect ke dashboard | Berhasil login tetapi lambat (3 detik) | PASS | - | - |
-| S002 | Upload file > 100MB | 1. Buka upload page 2. Pilih file besar 3. Klik upload | File berhasil diupload & progress bar muncul | Browser crash saat upload 60% | FAIL | BUG-001 | CRITICAL |
-| S003 | Concurrent data edit | 1. User A edit data 2. User B edit data simultaneously | Last-one-wins / conflict handling | Data duplikasi muncul | FAIL | BUG-002 | HIGH |
-| S004 | API timeout handling | 1. Test dengan slow network 2. Tunggu >30 detik | Error message user-friendly muncul | Blank page / no feedback | FAIL | BUG-003 | MEDIUM |
+### ✓ Gate 1: Sebelum Testing (Persiapan)
+Checklist sebelum mulai:
+- [ ] Requirements jelas
+- [ ] Environment siap & stabil
+- [ ] Data test tersedia
+- [ ] Sudah identifikasi risiko utama
+- [ ] Durasi testing sudah ditentukan
+
+### ✓ Gate 2: Saat Testing (Eksekusi)
+Saat testing berlangsung:
+- [ ] Catat setiap test case
+- [ ] Dokumentasi hasil (pass/fail)
+- [ ] Catat bug dengan severity
+- [ ] Test ulang bug yang ditemukan
+- [ ] Lihat coverage vs risiko
+
+**Saat Testing - Tanyakan pada Diri Sendiri:**
+1. Apa fitur yang paling mungkin rusak?
+2. Jika rusak, gimana dampaknya? (user frustrated? data hilang?)
+3. Ada workaround gak?
+4. Data aman gak?
+5. Keamanan ok gak?
+
+### ✓ Gate 3: Setelah Testing (Evaluasi)
+Sebelum declare PASS:
+- [ ] Semua bug KRITIS sudah dilaporkan
+- [ ] Coverage minimal 80% untuk area kritis
+- [ ] Risk sudah mitigated
+- [ ] Report & rekomendasi ready
 
 ---
 
-## 5. Bug Logging Template
+## 4. Cara Catat Testing (Template)
 
-### Bug Report Format
+### Header Testing
 ```
-BUG ID: BUG-XXX
-Status: Open / In Progress / Resolved / Closed
-Severity: CRITICAL / HIGH / MEDIUM / LOW
-Title: [Singkat, deskriptif]
+ID: TEST-001
+QA: [Nama Anda]
+Tanggal: [DD/MM/YYYY]
+Durasi: [2 jam]
+Focus: [Login & Data]
+Size: S / M / L / XL
+```
 
-Description:
-[Deskripsi detail bug]
+### Tabel Test Results
 
-Steps to Reproduce:
+| # | Test Apa | Langkah | Harapan | Hasil | Status | Bug ID | Level |
+|---|---|---|---|---|---|---|---|
+| 1 | Login | 1. Buka form 2. Input user & pass 3. Klik login | Masuk ke dashboard | Login tapi loading 3 detik | ✓ PASS | - | - |
+| 2 | Upload file 100MB+ | 1. Buka upload 2. Pilih file besar 3. Upload | Upload OK & progress bar | Browser crash 60% | ✗ FAIL | BUG-001 | 🔴 KRITIS |
+| 3 | Edit bersamaan | User A edit, User B edit | Handled dengan baik | Data duplikasi | ✗ FAIL | BUG-002 | 🟠 TINGGI |
+| 4 | API timeout | Test di slow network (>30 detik) | Pesan error ramah | Blank page | ✗ FAIL | BUG-003 | 🟡 SEDANG |
+
+---
+
+## 5. Laporan Bug (Kalau Ada Masalah)
+
+### Format Bug Report Sederhana
+```
+BUG ID: BUG-001
+Status: Open / Done / Rejected
+Level: 🔴 KRITIS / 🟠 TINGGI / 🟡 SEDANG / 🟢 RENDAH
+Judul: [Pendek & jelas apa masalahnya]
+
+📝 Deskripsi:
+[Apa yang terjadi]
+
+📋 Langkah Ulang:
 1. ...
 2. ...
 3. ...
 
-Expected Result:
-[Apa yang seharusnya terjadi]
+✓ Harapan:
+[Yang seharusnya terjadi]
 
-Actual Result:
-[Apa yang benar-benar terjadi]
+✗ Kenyataan:
+[Yang benar-benar terjadi]
 
-Environment:
-- OS: [e.g., Windows 10, macOS, Ubuntu]
-- Browser: [e.g., Chrome 120, Firefox]
-- Device: [Desktop / Mobile]
-- Build: [Version number]
+🖥 Environment:
+- OS: [Windows 10 / macOS / Ubuntu / Android]
+- Browser: [Chrome / Firefox]
+- Device: [Desktop / Tablet / Mobile]
+- Versi: [1.0.1]
 
-Attachments:
-- Screenshot: [Bukti visual]
-- Video: [Recording jika perlu]
-- Logs: [Error logs]
-
-Assigned To: [Developer name]
-Root Cause: [Setelah investigation]
-Fix Plan: [Rencana perbaikan]
+📎 Bukti:
+- Screenshot: [Ada?]
+- Video: [Ada?]
 ```
 
-### Bug Severity Guidelines (QA Guard)
-- **CRITICAL**: System crash, data loss, security breach, core function broken
-- **HIGH**: Major feature not working, significant performance issue, workaround exists
-- **MEDIUM**: Minor feature broken, UI issue, documentation issue
-- **LOW**: Cosmetic bug, typo, non-essential functionality
+### Severity Level (Dampak Bug)
+- 🔴 **KRITIS** = Browser crash / data hilang / security leak / fitur utama jalan gak
+- 🟠 **TINGGI** = Fitur penting tapi ada workaround / performa jelek
+- 🟡 **SEDANG** = Fitur minor bermasalah / UI error
+- 🟢 **RENDAH** = Typo / visual minor
 
 ---
 
-## 6. Coverage Analysis
+## 6. Analisis Hasil Testing
 
-### Risk-Based Coverage Matrix
+### Flow: Dari Test Results → Decision
+
 ```
-Risk Area | Scenario Count | Pass | Fail | Coverage % | Risk Exposure |
------------|----------------|------|------|-----------|----------------|
-Data Loss | 8 | 6 | 2 | 75% | MEDIUM (2 critical bugs) |
-Performance | 6 | 4 | 2 | 67% | HIGH (slow response) |
-Security | 5 | 5 | 0 | 100% | LOW |
-UX | 10 | 9 | 1 | 90% | LOW |
------------|----------------|------|------|-----------|----------------|
-TOTAL | 29 | 24 | 5 | 83% | MEDIUM |
+JALANKAN TEST
+│
+├─→ Catat Hasil (PASS/FAIL)
+│
+├─→ Hitung Pass Rate
+│
+├─→ Kategorisasi Bug
+│   ├─ KRITIS = 🔴
+│   ├─ TINGGI = 🟠
+│   ├─ SEDANG = 🟡
+│   └─ RENDAH = 🟢
+│
+├─→ Hitung Coverage %
+│
+└─→ ANALISIS
+    │
+    ├─ Coverage OK? (80%+)
+    ├─ Bug KRITIS ada?
+    ├─ Bug TINGGI berapa?
+    │
+    └─→ QUALITY GATE DECISION
 ```
 
-### Coverage Targets (QA Guard Standards)
-- **Critical Areas**: Minimal 90% coverage
-- **High Priority Areas**: Minimal 80% coverage
-- **Medium Priority Areas**: Minimal 70% coverage
-- **Overall**: Minimal 80% coverage
+### Tabel Coverage Ringkas
+| Area | Test | Pass | Fail | % | Risk |
+|---|---|---|---|---|---|
+| Data Loss | 8 | 6 | 2 | 75% | Sedang (2 bugs) |
+| Performa | 6 | 4 | 2 | 67% | Tinggi |
+| Security | 5 | 5 | 0 | 100% | Rendah |
+| UX | 10 | 9 | 1 | 90% | Rendah |
+| **TOTAL** | **29** | **24** | **5** | **83%** | **Sedang** |
+
+### Target Coverage (Standar QA Guard)
+- **Area Kritis**: Minimal 90% testing
+- **Area Tinggi**: Minimal 80% testing
+- **Area Sedang**: Minimal 70% testing
+- **Overall**: Minimal 80% testing
 
 ---
 
-## 7. Quality Gate Decision
+## 7. Keputusan Quality Gate
 
-### Gate Criteria
+### Kriteria PASS/FAIL Gate
+
+**✓ PASS Jika:**
+- Coverage ≥ 80% untuk area kritis
+- Bug KRITIS = 0
+- Bug TINGGI ≤ 2 (ada rencana fix)
+- Waktu testing sesuai rencana
+
+**✗ FAIL Jika:**
+- Coverage < 80% untuk area kritis
+- Ada bug KRITIS tanpa solusi
+- Bug TINGGI > 2 tanpa jelas kapan fix
+- Risk masih TINGGI/KRITIS
+
+### Hasil Keputusan
+**Tanggal**: [DD/MM/YYYY]
+**Keputusan**: ✓ PASS / ✗ FAIL / ⚠️ CONDITIONAL PASS
+**Alasan**: [Penjelasan singkat]
+**Approved By**: [QA Lead]
+
+### Decision Flow
+
 ```
-✓ PASS Gate Jika:
-  - Coverage ≥ 80% untuk critical areas
-  - CRITICAL bugs = 0
-  - HIGH bugs ≤ 2 (dengan mitigation plan)
-  - Test duration sesuai estimation
-  
-✗ FAIL Gate Jika:
-  - Coverage < 80% untuk critical areas
-  - CRITICAL bugs ≥ 1 tanpa workaround
-  - HIGH bugs > 2 tanpa clear fix date
-  - Risk exposure tetap HIGH/CRITICAL
+START DECISION
+│
+├─ Ada Bug KRITIS?
+│  └─ YES → ✗ FAIL GATE
+│  └─ NO → lanjut
+│
+├─ Coverage ≥ 80%?
+│  └─ NO → ✗ FAIL GATE
+│  └─ YES → lanjut
+│
+├─ Bug TINGGI ≤ 2?
+│  └─ NO → ⚠️ CONDITIONAL PASS
+│       (tunggu fix, baru bisa launch)
+│  └─ YES → lanjut
+│
+└─ ✓ PASS GATE
+   Ready to Launch!
 ```
 
-### Gate Decision
-**Date**: [Tanggal]
-**Decision**: PASS / FAIL / CONDITIONAL PASS
-**Reason**: [Penjelasan]
-**Approval By**: [QA Manager / Lead]
+### Severity Priority Matrix
+
+```
+             HIGH SEVERITY
+                  │
+        ┌─────────┼─────────┐
+        │         │         │
+RARE ───┤ MEDIUM  │ URGENT  │─── COMMON
+        │ PRIORITY│ PRIORITY│
+        └─────────┼─────────┘
+                  │
+             LOW SEVERITY
+
+Contoh:
+- Bug KRITIS (High Severity) di area KRITIS (Common) 
+  → URGENT! Stop testing, fix dulu!
+
+- Bug KRITIS (High Severity) di area jarang pakai (Rare)
+  → Penting tapi bisa fix kemudian
+
+- Bug RENDAH (Low Severity) di mana saja
+  → Test terus, log ulang release
+```
 
 ---
 
-## 8. Lesson Learned & Recommendations
+---
 
-### Findings Summary
-- **Total Test Cases**: XX
+## 8. Hasil & Rekomendasi
+
+### Ringkasan Hasil
+- **Total Test**: XX
 - **Pass**: XX (XX%)
 - **Fail**: XX (XX%)
-- **Critical Issues**: XX
-- **High Issues**: XX
-- **Medium Issues**: XX
-- **Low Issues**: XX
+- **Bug KRITIS**: XX
+- **Bug TINGGI**: XX
+- **Bug SEDANG**: XX
 
-### Key Findings
+### Key Findings (3 Hal Paling Penting)
 1. [Finding 1]
 2. [Finding 2]
 3. [Finding 3]
 
-### Recommendations
-1. [Rekomendasi untuk development]
-2. [Rekomendasi untuk testing]
-3. [Rekomendasi untuk deployment]
+### Rekomendasi Untuk Developer
+1. [Apa yang harus diperbaiki]
+2. [Apa yang harus dioptimasi]
+3. [Apa yang harus ditingkatkan]
 
-### Risk Mitigation Plan
-| Risk | Mitigation Strategy | Owner | Target Date |
-|------|-------------------|-------|------------|
-| [Risk] | [Strategi] | [Owner] | [Date] |
+### Plan Mitigasi Risk
+| Risk | Solusi | Siapa | Target |
+|---|---|---|---|
+| [Risiko] | [Aksi] | [Owner] | [Tgl] |
 
 ---
 
-## 9. Quick Reference: QA Guard Mindset
+## 9. QA Guard Mindset - Ingat Ini!
 
-### Testing Philosophy
-- **Risk-First**: Fokus pada risiko tertinggi terlebih dahulu
-- **Severity-Aware**: Pahami impact setiap bug
-- **Quality-Gate**: Jangan pass jika ada critical risk
-- **Documentation**: Catat semua untuk future reference
-- **Continuous Improvement**: Belajar dari setiap session
+### 5 Prinsip Testing
+1. **Risk First** → Test area paling berisiko dulu
+2. **Impact Aware** → Pahami dampak setiap bug
+3. **Quality Gate** → Jangan PASS kalau ada bug kritis
+4. **Document All** → Catat semua untuk referensi
+5. **Keep Learning** → Improve setiap session
 
-### Questions to Ask During Testing
-1. Apa yang paling mungkin rusak?
-2. Apa impact jika bug ini exists?
-3. Apakah ada workaround?
-4. Apakah ada data loss risk?
-5. Apakah security terjaga?
-6. Apakah UX acceptable?
+### Saat Testing, Selalu Tanya Diri Sendiri:
+- ❓ Apa fitur yang bisa paling jelek?
+- ❓ Jika rusak, user rugi apa?
+- ❓ Ada cara obatin/work-around?
+- ❓ Data aman dan tidak hilang?
+- ❓ Keamanan sistem ok?
+- ❓ UX bisa diterima user?
 
-### When to Stop Testing
-- Coverage target tercapai ✓
-- Critical risks sudah diidentifikasi ✓
-- Quality gate criteria met ✓
-- No new findings dalam 1 jam testing ✓
-- Time budget habis ✓
+### Kapan Berhenti Testing?
+- ✓ Coverage sudah tercapai 80%+
+- ✓ Risk utama sudah ketemu
+- ✓ Quality gate criteria terpenuhi
+- ✓ 1 jam tidak ada bug baru
+- ✓ Waktu alokasi habis
+
+### Testing Journey Chart
+
+```
+┌─────────────────────────────────────────────────────┐
+│         QA GUARD EXPLORATORY TESTING JOURNEY        │
+└─────────────────────────────────────────────────────┘
+
+FASE 1: PLANNING
+─────────────────
+[  ] Identifikasi Risk
+[  ] Prioritas Area
+[  ] Alokasi Waktu
+[  ] Siap Resources
+   └─→ Time: 10% dari total
+
+FASE 2: EXECUTION
+─────────────────
+[  ] Setup Environment
+[  ] Jalankan Test
+[  ] Catat Pass/Fail
+[  ] Log Bugs
+   └─→ Time: 70% dari total
+
+FASE 3: ANALYSIS
+─────────────────
+[  ] Hitung Coverage
+[  ] Kategorisasi Bug
+[  ] Risk Assessment
+[  ] Quality Gate
+   └─→ Time: 20% dari total
+
+HASIL
+─────
+✓ PASS    → Ready Launch
+⚠️ CONDITIONAL → Tunggu Fix
+✗ FAIL    → Fix, Test Ulang
+```
+
+---
+
+## 📋 Quick Checklist: Sebelum Testing
+
+```
+PRE-TESTING CHECKLIST
+
+ENV & SETUP
+└─ [ ] Server jalan?
+  [ ] Database ready?
+  [ ] Test data ada?
+  [ ] Akses permission ok?
+
+DOCUMENTATION
+└─ [ ] Requirements jelas?
+  [ ] Risk list sudah dibuat?
+  [ ] Test plan ready?
+  [ ] Template siap?
+
+TOOLS & RESOURCES
+└─ [ ] Browser/device siap?
+  [ ] Screenshot tool ready?
+  [ ] Bug tracking system siap?
+  [ ] QA Guard template terbuka?
+
+TIME ALLOCATION
+└─ [ ] Jadwal disiapkan?
+  [ ] Duration ditentukan?
+  [ ] Break time included?
+  [ ] Buffer time ada?
+
+STATUS: READY TO TEST? → YES / NO
+```
+
+---
