@@ -12,6 +12,21 @@
 
 ---
 
+## Ringkasan Singkat untuk Pemula IT/QA
+
+- **Apa itu?** Shift Left Testing artinya QA bekerja dari awal proyek, mulai dari requirement sampai deployment.
+- **Kenapa penting?** Karena bug ditemukan cepat, biaya perbaikan lebih murah, dan produk lebih stabil.
+- **Apa yang dikerjakan QA?** Di fase awal cek requirement, risiko, dan buat rencana tes. Di fase tengah buat test case, mock testing, dan otomasi. Di fase akhir jalankan integrasi, e2e, dan smoke tests.
+- **Bagaimana alurnya?**
+  - Phase 0: Cek requirement dan rencana (pre-dev).
+  - Phase 1: Review desain dan buat test case (awal dev).
+  - Phase 2: Mock tests / component tests saat bagian belum siap.
+  - Phase 3: Integrasi dan verifikasi keseluruhan (akhir dev).
+- **Untuk siapa?** Cocok untuk tester baru dan engineer yang belum pernah langsung ke proses QA full cycle.
+- **Tips cepat:** Kerja tim, catat risiko, gunakan template (checklist), dan update selalu status test.
+
+---
+
 ## Fase Shift Left Testing
 
 ### Phase 0: Requirements Analysis & Planning (Pre-Development)
