@@ -29,26 +29,26 @@
 
 ## Fase Shift Left Testing
 
-### Phase 0: Requirements Analysis & Planning (Pre-Development)
+### Phase 0: Analisis Kebutuhan dan Perencanaan (Pre-Development)
 
 #### Aktivitas QA:
-1. **Requirements Review**
+1. **Review Kebutuhan**
    - Review user stories dan acceptance criteria
-   - Identify gaps dan ambiguities
-   - Document test scenarios dan edge cases
-   - Create test matrix
+   - Identifikasi gaps dan ambiguities
+   - Dokumentasikan test scenarios dan edge cases
+   - Buat test matrix
 
-2. **Risk Assessment**
-   - Analyze high-risk features
-   - Prioritize testing efforts
-   - Identify dependencies
-   - Plan resource allocation
+2. **Penilaian Risiko**
+   - Analisis fitur berisiko tinggi
+   - Prioritaskan upaya testing
+   - Identifikasi dependencies
+   - Rencanakan alokasi sumber daya
 
-3. **Test Planning**
-   - Create test strategy document
-   - Define test scope dan out-of-scope items
-   - Plan automation vs manual testing
-   - Allocate testers by skill level
+3. **Perencanaan Testing**
+   - Buat dokumen strategi testing
+   - Definisikan scope testing dan out-of-scope items
+   - Rencanakan automation vs manual testing
+   - Alokasikan tester berdasarkan tingkat keahlian
 
 #### Template Requirement Review Checklist:
 ```
@@ -56,7 +56,7 @@ Project: ___________________
 Date: ___________________
 Reviewer: ___________________
 
-REQUIREMENT DETAILS
+DETAIL KEBUTUHAN
 - [ ] Requirement jelas dan terukur (SMART)
 - [ ] Acceptance criteria terdefinisi dengan baik
 - [ ] Dependency teridentifikasi
@@ -65,14 +65,14 @@ REQUIREMENT DETAILS
 - [ ] Security requirement teridentifikasi
 - [ ] Compatibility matrix defined
 
-TESTING IMPLICATIONS
+IMPLIKASI TESTING
 - [ ] Test scenarios dapat didefinisikan
 - [ ] Automation feasibility assessed
 - [ ] Resource & timeline reasonable
 - [ ] Data preparation plan exists
 - [ ] Environment requirements clear
 
-RISKS & DEPENDENCIES
+RISIKO & DEPENDENSI
 - [ ] Backend ready timeline: ___________
 - [ ] Frontend ready timeline: ___________
 - [ ] Third-party integrations: ___________
@@ -86,25 +86,25 @@ Dev Lead: _____________ Date: _______
 
 ---
 
-### Phase 1: Design Review & Test Case Creation (Early Development)
+### Phase 1: Review Desain dan Pembuatan Test Case (Early Development)
 
 #### Aktivitas QA:
-1. **Design Review**
-   - Review technical design document
-   - Identify testability issues
-   - Check consistency dengan requirements
-   - Plan component-level testing
+1. **Review Desain**
+   - Review dokumen desain teknis
+   - Identifikasi masalah testability
+   - Periksa konsistensi dengan requirements
+   - Rencanakan component-level testing
 
-2. **Early Test Case Design**
-   - Create detailed test cases (belum executable)
-   - Define test data requirements
-   - Identify automation opportunities
-   - Plan negative test scenarios
+2. **Desain Test Case Awal**
+   - Buat test cases detail (belum executable)
+   - Definisikan kebutuhan test data
+   - Identifikasi peluang automation
+   - Rencanakan negative test scenarios
 
-3. **Test Environment Preparation**
-   - Setup test infrastructure
-   - Prepare mock/stub services
-   - Create test data generation scripts
+3. **Persiapan Environment Testing**
+   - Setup infrastruktur testing
+   - Siapkan mock/stub services
+   - Buat script generasi test data
    - Setup monitoring & logging
 
 #### Template Early Test Case Design:
@@ -149,21 +149,21 @@ MOCK DETAILS: ___________
 #### Aktivitas QA saat Backend/Frontend belum ready:
 
 1. **API Contract Testing**
-   - Test API specifications menggunakan mock
-   - Validate request/response format
-   - Test error responses
-   - Performance testing pada API level
+   - Test spesifikasi API menggunakan mock
+   - Validasi format request/response
+   - Test response error
+   - Performance testing pada level API
 
-2. **Frontend Unit Testing Support**
-   - Test UI components dengan mock backend
-   - Create component test scenarios
+2. **Dukungan Frontend Unit Testing**
+   - Test komponen UI dengan mock backend
+   - Buat test scenarios komponen
    - Test state management
-   - Validate error handling
+   - Validasi error handling
 
 3. **Backend Contract Testing**
    - Test business logic dengan mock data
-   - Validate database operations
-   - Test error scenarios
+   - Validasi operasi database
+   - Test skenario error
    - Performance profiling
 
 #### Template Mock Testing Strategy:
@@ -213,9 +213,9 @@ TRANSITION PLAN TO REAL INTEGRATION:
 #### Aktivitas QA saat Components siap diintegrasikan:
 
 1. **End-to-End Testing**
-   - Test complete user workflows
-   - Database integration verification
-   - Third-party service integration
+   - Test alur user workflows lengkap
+   - Verifikasi integrasi database
+   - Integrasi third-party service
    - Performance testing
 
 2. **Compatibility Testing**
@@ -225,7 +225,7 @@ TRANSITION PLAN TO REAL INTEGRATION:
    - OS compatibility
 
 3. **Smoke Testing**
-   - Critical path validation
+   - Validasi critical path
    - Build health check
    - Environment validation
 
