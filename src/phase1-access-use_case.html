@@ -135,16 +135,6 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* mobile menu button */
-        #mobileMenuBtn {
-            display: none;
-            background: transparent;
-            border: none;
-            font-size: 1.5em;
-            color: white;
-            cursor: pointer;
-        }
-
         .dashboard-header h1 {
             font-size: 1.8em;
         }
@@ -412,52 +402,6 @@
             color: white;
         }
 
-        /* NAVIGATION BUTTONS */
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #f0f0f0;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .nav-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            text-decoration: none;
-            font-size: 0.95em;
-        }
-
-        .nav-btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .nav-btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .nav-btn-secondary {
-            background: #f0f0f0;
-            color: #333;
-            border: 1px solid #ddd;
-        }
-
-        .nav-btn-secondary:hover {
-            background: #e0e0e0;
-            border-color: #667eea;
-        }
-
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .login-container {
@@ -486,37 +430,6 @@
             .dashboard-header {
                 flex-direction: column;
                 gap: 15px;
-                padding: 20px;
-            }
-
-            #mobileMenuBtn {
-                display: block;
-                position: absolute;
-                top: 20px;
-                left: 20px;
-            }
-
-            .sidebar {
-                position: absolute;
-                top: 60px;
-                left: -260px;
-                width: 220px;
-                height: calc(100% - 60px);
-                background: white;
-                transition: left 0.3s;
-                z-index: 100;
-            }
-
-            .sidebar.open {
-                left: 0;
-            }
-
-            .dashboard-content {
-                flex-direction: column;
-                margin: 20px 10px;
-            }
-
-            .main-content {
                 padding: 20px;
             }
 
@@ -556,15 +469,16 @@
                 </div>
                 <button type="submit" class="btn-login">Login</button>
             </form>
+                <button class="logout-btn" onclick="backToIndex()">⬅️ Back to Main Menu</button>
         </div>
     </div>
 
     <!-- DASHBOARD SCREEN -->
     <div class="dashboard-container" id="dashboardScreen">
         <div class="dashboard-header">
-                <button id="mobileMenuBtn" onclick="toggleSidebar()" aria-label="Toggle menu">☰</button>
-                <h1>🎯 QA Capacity Planning Dashboard</h1>
+            <h1>🎯 QA Capacity Planning Dashboard</h1>
             <div class="user-info">
+                <button class="btn-back" onclick="backToIndex()" style="background: rgba(102, 126, 234, 0.1); color: #667eea; border: 1px solid #667eea; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-right: 10px;">⬅️ Back to Main Menu</button>
                 <div class="user-avatar" id="userInitial">U</div>
                 <span id="userName">User</span>
                 <button class="btn-logout" onclick="logout()">Logout</button>
@@ -726,7 +640,7 @@
                                 </tr>
                                 <tr>
                                     <td style="padding: 8px 0;"><strong>QA Manager:</strong></td>
-                                    <td style="padding: 8px 0;">Fadli QA</td>
+                                    <td style="padding: 8px 0;">Fadli Pratama</td>
                                 </tr>
                             </table>
                         </div>
@@ -1479,15 +1393,6 @@
                             </tr>
                         </tbody>
                     </table>
-
-                    <div class="nav-buttons">
-                        <button class="nav-btn nav-btn-primary" onclick="goToPhase2()" title="Explore Phase 2 - Capacity Planning">
-                            📊 Go to Phase 2
-                        </button>
-                        <button class="nav-btn nav-btn-primary" onclick="goToShiftLeft()" title="Explore Shift Left Testing">
-                            🚀 Go to Shift Left Testing
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1496,7 +1401,7 @@
     <script>
         // Sample login credentials
         const validUsers = {
-            'fadli': { password: 'password123', role: 'qa-manager', fullName: 'Fadli QA' },
+            'fadli': { password: 'password123', role: 'qa-manager', fullName: 'Fadli Pratama' },
             'tester': { password: 'pass123', role: 'qa-tester', fullName: 'Tester User' },
             'admin': { password: 'admin123', role: 'it-admin', fullName: 'Admin IT' },
             'sysadmin': { password: 'sys123', role: 'system-admin', fullName: 'System Admin' }
@@ -1548,16 +1453,6 @@
             document.getElementById('dashboardScreen').style.display = 'block';
         }
 
-        // mobile sidebar toggle
-        function toggleSidebar() {
-            const sb = document.querySelector('.sidebar');
-            if (sb.classList.contains('open')) {
-                sb.classList.remove('open');
-            } else {
-                sb.classList.add('open');
-            }
-        }
-
         function logout() {
             if (confirm('Apakah Anda yakin ingin logout?')) {
                 sessionStorage.removeItem('currentUser');
@@ -1581,12 +1476,6 @@
 
             // Add active to clicked menu item
             event.target.classList.add('active');
-
-            // if mobile sidebar is open, close it after navigating
-            const sb = document.querySelector('.sidebar');
-            if (sb && sb.classList.contains('open')) {
-                sb.classList.remove('open');
-            }
         }
 
         function toggleUseCase(card) {
@@ -1616,13 +1505,9 @@
             }
         });
 
-        // Navigation functions
-        function goToPhase2() {
-            window.location.href = 'phase2-capacity-planning.html';
-        }
-
-        function goToShiftLeft() {
-            window.location.href = 'shift-left-testing.html';
+        // Navigation function
+        function backToIndex() {
+            window.location.href = 'index.html';
         }
     </script>
 </body>

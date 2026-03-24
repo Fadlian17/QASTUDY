@@ -487,52 +487,6 @@
             font-weight: bold;
         }
 
-        /* NAVIGATION BUTTONS */
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #f0f0f0;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .nav-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            text-decoration: none;
-            font-size: 0.95em;
-        }
-
-        .nav-btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .nav-btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .nav-btn-secondary {
-            background: #f0f0f0;
-            color: #333;
-            border: 1px solid #ddd;
-        }
-
-        .nav-btn-secondary:hover {
-            background: #e0e0e0;
-            border-color: #667eea;
-        }
-
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .header {
@@ -568,8 +522,14 @@
     <div class="container">
         <!-- HEADER -->
         <div class="header">
-            <h1>🎯 Shift Left Testing Implementation</h1>
-            <p>Interactive tool untuk menerapkan Shift Left Testing dalam SDLC Anda</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <button class="back-btn" onclick="backToIndex()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 10px 20px; border-radius: 5px; cursor: pointer;">⬅️ Back to Main Menu</button>
+                <div style="text-align: center; flex: 1;">
+                    <h1>🎯 Shift Left Testing Implementation</h1>
+                    <p>Interactive tool untuk menerapkan Shift Left Testing dalam SDLC Anda</p>
+                </div>
+                <div style="width: 150px;"></div> <!-- Spacer for balance -->
+            </div>
         </div>
 
         <!-- NAVIGATION TABS -->
@@ -580,7 +540,6 @@
             <button class="nav-tab" onclick="switchTab('tools')">🛠️ Tools</button>
             <button class="nav-tab" onclick="switchTab('templates')">📝 Templates</button>
             <button class="nav-tab" onclick="switchTab('checklist')">✅ Checklist</button>
-            <button class="nav-tab" onclick="switchTab('settings')">⚙️ Settings</button>
         </div>
 
         <!-- CONTENT -->
@@ -1359,47 +1318,6 @@
                 </div>
             </div>
 
-            <!-- TAB: SETTINGS -->
-            <div class="tab-content" id="tab-settings">
-                <div class="section">
-                    <h2>Settings</h2>
-                    <h3 style="margin-top: 20px; margin-bottom: 15px;">Your Profile</h3>
-                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
-                        <tbody>
-                            <tr style="border-bottom: 1px solid #ddd;">
-                                <td style="padding: 12px; font-weight: 600; width: 200px;">Username</td>
-                                <td style="padding: 12px;">fadli</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #ddd;">
-                                <td style="padding: 12px; font-weight: 600;">Role</td>
-                                <td style="padding: 12px;">QA Manager</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #ddd;">
-                                <td style="padding: 12px; font-weight: 600;">Email</td>
-                                <td style="padding: 12px;">fadli@company.com</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #ddd;">
-                                <td style="padding: 12px; font-weight: 600;">Department</td>
-                                <td style="padding: 12px;">Quality Assurance</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 12px; font-weight: 600;">Last Login</td>
-                                <td style="padding: 12px;">21 Feb 2026, 10:30 AM</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="nav-buttons">
-                        <button class="nav-btn nav-btn-secondary" onclick="goToPhase1()" title="Back to Phase 1">
-                            ⬅️ Back to Phase 1
-                        </button>
-                        <button class="nav-btn nav-btn-secondary" onclick="goToPhase2()" title="Go to Phase 2">
-                            📊 Go to Phase 2
-                        </button>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 
@@ -1620,13 +1538,9 @@
             doc.save(filename);
         }
 
-        // Navigation functions
-        function goToPhase1() {
-            window.location.href = 'phase1-access-use_case.html';
-        }
-
-        function goToPhase2() {
-            window.location.href = 'phase2-capacity-planning.html';
+        // Navigation function
+        function backToIndex() {
+            window.location.href = 'index.html';
         }
     </script>
 </body>

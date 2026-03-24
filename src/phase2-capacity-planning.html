@@ -477,7 +477,7 @@
             <h1>📈 Capacity Planning</h1>
             <div class="user-section">
                 <span id="userDisplay">Fadli (QA Manager)</span>
-                <button class="logout-btn" onclick="backToPhase1()">Kembali ke Phase 1</button>
+                <button class="logout-btn" onclick="backToIndex()">⬅️ Back to Main Menu</button>
             </div>
         </div>
 
@@ -1123,6 +1123,10 @@
         });
 
         // Navigation functions
+        function backToIndex() {
+            window.location.href = 'index.html';
+        }
+
         function goToPhase1() {
             window.location.href = 'phase1-access-use_case.html';
         }
