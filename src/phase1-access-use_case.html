@@ -58,47 +58,243 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            max-width: 400px;
         }
 
         .login-right h2 {
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             color: #333;
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        .login-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95em;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #555;
-            font-weight: 500;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.9em;
         }
 
-        .form-group input {
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1.1em;
+        }
+
+        .form-group input,
+        .form-group select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
             font-size: 1em;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
+            background-color: #fafbfc;
+            font-family: inherit;
         }
 
-        .form-group input:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #667eea;
-            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #aab0b6;
         }
 
         .form-group select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1em;
-            background-color: white;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 45px;
             cursor: pointer;
+        }
+
+        .form-group input.error,
+        .form-group select.error {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.85em;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            accent-color: #667eea;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: normal;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 25px;
+        }
+
+        .forgot-password a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .btn-login.loading {
+            pointer-events: none;
+        }
+
+        .btn-login.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            margin: auto;
+            border: 2px solid transparent;
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e1e5e9;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-btn {
+            background: #f8f9fa;
+            color: #667eea;
+            padding: 12px 20px;
+            border: 1px solid #e1e5e9;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+        }
+
+        /* ALERT MESSAGES */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .alert-error {
+            background-color: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .alert-success {
+            background-color: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+
+        .alert-info {
+            background-color: #eff6ff;
+            color: #2563eb;
+            border: 1px solid #bfdbfe;
         }
 
         .btn-login {
@@ -447,29 +643,64 @@
             <p>Platform SaaS untuk merencanakan dan memonitor kapasitas tim QA dengan lebih efisien dan terukur.</p>
         </div>
         <div class="login-right">
-            <h2>Login</h2>
+            <h2>Welcome Back</h2>
+            <p class="login-subtitle">Sign in to your QA Capacity Planning account</p>
+
+            <div id="loginMessage" class="alert" style="display: none;"></div>
+
             <form id="loginForm">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" required placeholder="Masukkan username">
+                    <div class="input-wrapper">
+                        <i class="input-icon">👤</i>
+                        <input type="text" id="username" required placeholder="Enter your username" autocomplete="username">
+                    </div>
+                    <div class="error-message" id="usernameError">Please enter a valid username</div>
                 </div>
+
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" required placeholder="Masukkan password">
+                    <div class="input-wrapper">
+                        <i class="input-icon">🔒</i>
+                        <input type="password" id="password" required placeholder="Enter your password" autocomplete="current-password">
+                    </div>
+                    <div class="error-message" id="passwordError">Please enter your password</div>
                 </div>
+
                 <div class="form-group">
                     <label for="role">Role</label>
-                    <select id="role" required>
-                        <option value="">Pilih role...</option>
-                        <option value="qa-manager">QA Manager</option>
-                        <option value="qa-tester">QA Tester</option>
-                        <option value="it-admin">IT Admin</option>
-                        <option value="system-admin">System Admin</option>
-                    </select>
+                    <div class="input-wrapper">
+                        <i class="input-icon">🎯</i>
+                        <select id="role" required>
+                            <option value="">Select your role...</option>
+                            <option value="qa-manager">QA Manager</option>
+                            <option value="qa-tester">QA Tester</option>
+                            <option value="it-admin">IT Admin</option>
+                            <option value="system-admin">System Admin</option>
+                        </select>
+                    </div>
+                    <div class="error-message" id="roleError">Please select your role</div>
                 </div>
-                <button type="submit" class="btn-login">Login</button>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Remember me</label>
+                </div>
+
+                <button type="submit" class="btn-login" id="loginBtn">
+                    <span id="loginText">Sign In</span>
+                </button>
             </form>
-                <button class="logout-btn" onclick="backToIndex()">⬅️ Back to Main Menu</button>
+
+            <div class="forgot-password">
+                <a href="#" onclick="showForgotPassword()">Forgot your password?</a>
+            </div>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <button class="back-btn" onclick="backToIndex()">⬅️ Back to Main Menu</button>
         </div>
     </div>
 
@@ -1408,35 +1639,142 @@
         };
 
         // Login handler
+        // Login handler with enhanced validation
         document.getElementById('loginForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const username = document.getElementById('username').value;
+            // Clear previous errors
+            clearErrors();
+
+            const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             const role = document.getElementById('role').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
 
-            // Simple validation
-            if (!username || !password || !role) {
-                alert('Semua field harus diisi!');
+            // Enhanced validation
+            let isValid = true;
+
+            if (!username) {
+                showError('username', 'Username is required');
+                isValid = false;
+            } else if (username.length < 3) {
+                showError('username', 'Username must be at least 3 characters');
+                isValid = false;
+            }
+
+            if (!password) {
+                showError('password', 'Password is required');
+                isValid = false;
+            } else if (password.length < 6) {
+                showError('password', 'Password must be at least 6 characters');
+                isValid = false;
+            }
+
+            if (!role) {
+                showError('role', 'Please select your role');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                showMessage('Please correct the errors below', 'error');
                 return;
             }
 
-            // Check credentials
-            if (validUsers[username] && validUsers[username].password === password && validUsers[username].role === role) {
-                // Login successful
-                const user = validUsers[username];
-                sessionStorage.setItem('currentUser', JSON.stringify({
-                    username: username,
-                    fullName: user.fullName,
-                    role: role,
-                    roleLabel: getRoleLabel(role)
-                }));
+            // Show loading state
+            setLoading(true);
 
-                showDashboard();
-            } else {
-                alert('Username, password, atau role tidak sesuai!');
-            }
+            // Simulate network delay for better UX
+            setTimeout(() => {
+                // Check credentials
+                if (validUsers[username] && validUsers[username].password === password && validUsers[username].role === role) {
+                    // Login successful
+                    const user = validUsers[username];
+
+                    const userData = {
+                        username: username,
+                        fullName: user.fullName,
+                        role: role,
+                        roleLabel: getRoleLabel(role),
+                        loginTime: new Date().toISOString()
+                    };
+
+                    sessionStorage.setItem('currentUser', JSON.stringify(userData));
+
+                    // Handle remember me
+                    if (rememberMe) {
+                        localStorage.setItem('rememberedUser', JSON.stringify({
+                            username: username,
+                            role: role
+                        }));
+                    } else {
+                        localStorage.removeItem('rememberedUser');
+                    }
+
+                    showMessage('Login successful! Redirecting...', 'success');
+                    setTimeout(() => {
+                        showDashboard();
+                    }, 1000);
+
+                } else {
+                    setLoading(false);
+                    showMessage('Invalid username, password, or role. Please try again.', 'error');
+
+                    // Add error styling to inputs
+                    document.getElementById('username').classList.add('error');
+                    document.getElementById('password').classList.add('error');
+                    document.getElementById('role').classList.add('error');
+                }
+            }, 800);
         });
+
+        // Enhanced utility functions
+        function showError(fieldId, message) {
+            const errorElement = document.getElementById(fieldId + 'Error');
+            const inputElement = document.getElementById(fieldId);
+
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            inputElement.classList.add('error');
+        }
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error-message');
+            const inputElements = document.querySelectorAll('.form-group input, .form-group select');
+
+            errorElements.forEach(el => el.style.display = 'none');
+            inputElements.forEach(el => el.classList.remove('error'));
+        }
+
+        function showMessage(message, type) {
+            const messageElement = document.getElementById('loginMessage');
+            messageElement.textContent = message;
+            messageElement.className = `alert alert-${type}`;
+            messageElement.style.display = 'block';
+
+            // Auto-hide success messages
+            if (type === 'success') {
+                setTimeout(() => {
+                    messageElement.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        function setLoading(isLoading) {
+            const btn = document.getElementById('loginBtn');
+            const text = document.getElementById('loginText');
+
+            if (isLoading) {
+                btn.classList.add('loading');
+                text.textContent = 'Signing In...';
+            } else {
+                btn.classList.remove('loading');
+                text.textContent = 'Sign In';
+            }
+        }
+
+        function showForgotPassword() {
+            showMessage('Password reset functionality is not implemented in this demo. Please contact your administrator.', 'info');
+        }
 
         function showDashboard() {
             const user = JSON.parse(sessionStorage.getItem('currentUser'));
@@ -1497,11 +1835,18 @@
             return roleLabels[role] || 'User';
         }
 
-        // Check if already logged in
+        // Check if already logged in and handle remembered user
         window.addEventListener('load', function () {
             const currentUser = sessionStorage.getItem('currentUser');
+            const rememberedUser = localStorage.getItem('rememberedUser');
+
             if (currentUser) {
                 showDashboard();
+            } else if (rememberedUser) {
+                const user = JSON.parse(rememberedUser);
+                document.getElementById('username').value = user.username;
+                document.getElementById('role').value = user.role;
+                document.getElementById('rememberMe').checked = true;
             }
         });
 
