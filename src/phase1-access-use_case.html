@@ -1310,22 +1310,94 @@
                             <div style="background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
                                 <div style="font-size: 2em; font-weight: bold; color: #667eea;">12</div>
                                 <div style="font-size: 0.85em; color: #666; margin-top: 5px;">Test Sessions</div>
+                                <div style="font-size: 0.75em; color: #999; margin-top: 3px;">~13 hrs execution</div>
                             </div>
                             <div style="background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
                                 <div style="font-size: 2em; font-weight: bold; color: #10b981;">156</div>
                                 <div style="font-size: 0.85em; color: #666; margin-top: 5px;">Scenarios Tested</div>
+                                <div style="font-size: 0.75em; color: #999; margin-top: 3px;">13 scenarios/session</div>
                             </div>
                             <div style="background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
                                 <div style="font-size: 2em; font-weight: bold; color: #ef4444;">8</div>
                                 <div style="font-size: 0.85em; color: #666; margin-top: 5px;">Bugs Found</div>
+                                <div style="font-size: 0.75em; color: #999; margin-top: 3px;">5% defect rate</div>
                             </div>
                             <div style="background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
                                 <div style="font-size: 2em; font-weight: bold; color: #667eea;">94%</div>
                                 <div style="font-size: 0.85em; color: #666; margin-top: 5px;">Gate Pass Rate</div>
+                                <div style="font-size: 0.75em; color: #999; margin-top: 3px;">Maturity level: Good</div>
                             </div>
                         </div>
+
+                        <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 3px solid #667eea;">
+                            <h4 style="color: #333; margin-bottom: 12px;">📝 Bug Breakdown (8 issues teridentifikasi):</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.9em;">
+                                <div>
+                                    <div style="background: #fee2e2; padding: 10px; border-radius: 5px; margin-bottom: 8px;">
+                                        <strong style="color: #991b1b;">🔴 Critical (2):</strong>
+                                        <ul style="margin-left: 18px; margin-top: 5px; color: #7f1d1d;">
+                                            <li>Session timeout tidak handle dengan baik saat bulk test</li>
+                                            <li>Memory leak di capacity chart rendering (>500 data points)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="background: #fef3c7; padding: 10px; border-radius: 5px; margin-bottom: 8px;">
+                                        <strong style="color: #92400e;">🟡 High (4):</strong>
+                                        <ul style="margin-left: 18px; margin-top: 5px; color: #78350f;">
+                                            <li>Validation error messages tidak consistent</li>
+                                            <li>Export PDF tidak handle special characters</li>
+                                            <li>Sorting pada capacity table tidak stabil</li>
+                                            <li>Mobile responsive issue di dashboard header</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="background: #dbeafe; padding: 10px; border-radius: 5px;">
+                                        <strong style="color: #1e40af;">🟢 Medium (2):</strong>
+                                        <ul style="margin-left: 18px; margin-top: 5px; color: #1e3a8a;">
+                                            <li>Tooltip text truncated pada field label panjang</li>
+                                            <li>Keyboard navigation skips form fields</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 3px solid #10b981;">
+                            <h4 style="color: #333; margin-bottom: 12px;">🔍 Test Coverage by Area:</h4>
+                            <table style="width: 100%; font-size: 0.9em;">
+                                <tr style="border-bottom: 1px solid #e5e7eb;">
+                                    <td style="padding: 8px;"><strong>Authentication & Session</strong></td>
+                                    <td style="padding: 8px;"><span class="badge" style="background: #dcfce7; color: #166534;">28 scenarios</span></td>
+                                    <td style="padding: 8px; text-align: right; color: #10b981;"><strong>✓ 92% pass</strong></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e7eb;">
+                                    <td style="padding: 8px;"><strong>Capacity Planning Input</strong></td>
+                                    <td style="padding: 8px;"><span class="badge" style="background: #e0e7ff; color: #1e40af;">42 scenarios</span></td>
+                                    <td style="padding: 8px; text-align: right; color: #10b981;"><strong>✓ 95% pass</strong></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e7eb;">
+                                    <td style="padding: 8px;"><strong>Dashboard & Visualization</strong></td>
+                                    <td style="padding: 8px;"><span class="badge" style="background: #fef3c7; color: #92400e;">38 scenarios</span></td>
+                                    <td style="padding: 8px; text-align: right; color: #f59e0b;"><strong>⚠ 89% pass</strong></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e7eb;">
+                                    <td style="padding: 8px;"><strong>Reporting & Export</strong></td>
+                                    <td style="padding: 8px;"><span class="badge" style="background: #dbeafe; color: #1e40af;">26 scenarios</span></td>
+                                    <td style="padding: 8px; text-align: right; color: #10b981;"><strong>✓ 96% pass</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px;"><strong>Edge Cases & Error Handling</strong></td>
+                                    <td style="padding: 8px;"><span class="badge" style="background: #fee2e2; color: #991b1b;">22 scenarios</span></td>
+                                    <td style="padding: 8px; text-align: right; color: #ef4444;"><strong>✗ 82% pass</strong></td>
+                                </tr>
+                            </table>
+                        </div>
+
                         <div style="background: white; padding: 15px; border-radius: 8px; font-size: 0.9em; color: #444;">
-                            <p><strong>Key Finding:</strong> Exploratory testing dengan QA Guard framework berhasil mengidentifikasi 8 bugs sebelum release, mencegah potensi customer issues. Risk exposure berkurang 60% dibanding sprint sebelumnya.</p>
+                            <p><strong>📊 Key Finding:</strong> Exploratory testing dengan QA Guard framework berhasil mengidentifikasi 8 bugs (2 critical, 4 high, 2 medium) sebelum release. Bug severity distribution: 25% critical, 50% high priority, 25% medium. Kritis menemukan session timeout dan memory leak yang akan berdampak pada production stability. Risk exposure berkurang 60% dibanding sprint sebelumnya.</p>
+                            <p style="margin-top: 10px;"><strong>💡 Insights:</strong> Area paling lemah adalah edge cases & error handling (82% pass rate). Rekomendasi: tambah 15 hours untuk error boundary testing di sprint berikutnya. Dashboard & visualization juga perlu fokus pada performance testing terutama saat data volume besar.</p>
                         </div>
                     </div>
                 </div>
