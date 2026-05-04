@@ -1400,6 +1400,99 @@
                             <p style="margin-top: 10px;"><strong>💡 Insights:</strong> Area paling lemah adalah edge cases & error handling (82% pass rate). Rekomendasi: tambah 15 hours untuk error boundary testing di sprint berikutnya. Dashboard & visualization juga perlu fokus pada performance testing terutama saat data volume besar.</p>
                         </div>
                     </div>
+
+                    <h3 style="margin-top: 40px; margin-bottom: 15px;">🔍 Test Oracle Framework - "Source of Truth" untuk Testing</h3>
+                    <div style="background: #f0f7ff; padding: 20px; border-radius: 10px; border-left: 4px solid #3b82f6;">
+                        <p style="color: #1e40af; margin-bottom: 15px;"><strong>Apa itu Test Oracle?</strong> Test Oracle adalah mekanisme/standar yang menentukan apakah hasil testing PASS atau FAIL. Ini adalah "sumber kebenaran" yang mendefinisikan expected result vs actual result dalam setiap test case.</p>
+
+                        <h4 style="color: #1e40af; margin-top: 15px; margin-bottom: 12px;">📋 Lima Jenis Test Oracle:</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                            <div style="background: white; padding: 12px; border-radius: 8px; border-left: 3px solid #3b82f6;">
+                                <strong style="color: #1e40af;">1. Specification Oracle</strong>
+                                <p style="font-size: 0.85em; color: #666; margin-top: 5px;">Berdasarkan requirements & spec</p>
+                                <p style="font-size: 0.8em; color: #999; margin-top: 3px; font-style: italic;">✓ "Total MD harus ≥ 0 dan ≤ 1000"</p>
+                            </div>
+                            <div style="background: white; padding: 12px; border-radius: 8px; border-left: 3px solid #8b5cf6;">
+                                <strong style="color: #6d28d9;">2. Derived Oracle</strong>
+                                <p style="font-size: 0.85em; color: #666; margin-top: 5px;">Dari model/algoritma yang diketahui</p>
+                                <p style="font-size: 0.8em; color: #999; margin-top: 3px; font-style: italic;">✓ "Total = sum(semua kategori)"</p>
+                            </div>
+                            <div style="background: white; padding: 12px; border-radius: 8px; border-left: 3px solid #10b981;">
+                                <strong style="color: #059669;">3. Heuristic Oracle</strong>
+                                <p style="font-size: 0.85em; color: #666; margin-top: 5px;">Dari best practice & experience</p>
+                                <p style="font-size: 0.8em; color: #999; margin-top: 3px; font-style: italic;">✓ "Response time < 2 detik"</p>
+                            </div>
+                            <div style="background: white; padding: 12px; border-radius: 8px; border-left: 3px solid #f59e0b;">
+                                <strong style="color: #d97706;">4. Consistency Oracle</strong>
+                                <p style="font-size: 0.85em; color: #666; margin-top: 5px;">Konsistensi antar sistem</p>
+                                <p style="font-size: 0.8em; color: #999; margin-top: 3px; font-style: italic;">✓ "DB value = Frontend value"</p>
+                            </div>
+                            <div style="background: white; padding: 12px; border-radius: 8px; border-left: 3px solid #ef4444;">
+                                <strong style="color: #dc2626;">5. Process Oracle</strong>
+                                <p style="font-size: 0.85em; color: #666; margin-top: 5px;">Berdasarkan proses yang benar</p>
+                                <p style="font-size: 0.8em; color: #999; margin-top: 3px; font-style: italic;">✓ "Validation before save"</p>
+                            </div>
+                        </div>
+
+                        <h4 style="color: #1e40af; margin-bottom: 12px;">🎯 Penerapan Test Oracle di Platform QA Capacity Planning:</h4>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+                            <thead>
+                                <tr style="background: #dbeafe; border-bottom: 2px solid #3b82f6;">
+                                    <th style="padding: 10px; text-align: left; color: #1e40af;"><strong>Test Area</strong></th>
+                                    <th style="padding: 10px; text-align: left; color: #1e40af;"><strong>Jenis Oracle</strong></th>
+                                    <th style="padding: 10px; text-align: left; color: #1e40af;"><strong>Definition (Expected Result)</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #e5e7eb;">
+                                    <td style="padding: 10px;"><strong>Login Authentication</strong></td>
+                                    <td style="padding: 10px;">Specification</td>
+                                    <td style="padding: 10px;">User diterima hanya dengan username + password + role valid; session timeout 30 menit</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e7eb;">
+                                    <td style="padding: 10px;"><strong>Capacity Calculation</strong></td>
+                                    <td style="padding: 10px;">Derived</td>
+                                    <td style="padding: 10px;">Total MD = Manual(MD) + Automation(MD) + Performance(MD) + Planning(MD) + Debt(MD)</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e7eb;">
+                                    <td style="padding: 10px;"><strong>Dashboard Performance</strong></td>
+                                    <td style="padding: 10px;">Heuristic</td>
+                                    <td style="padding: 10px;">Initial load ≤ 2s; Chart rendering ≤ 1s; dengan 500+ data points</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e7eb;">
+                                    <td style="padding: 10px;"><strong>Data Sync</strong></td>
+                                    <td style="padding: 10px;">Consistency</td>
+                                    <td style="padding: 10px;">Data di database, UI, dan exported report harus identik; timestamp konsisten</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e7eb;">
+                                    <td style="padding: 10px;"><strong>Input Validation</strong></td>
+                                    <td style="padding: 10px;">Process</td>
+                                    <td style="padding: 10px;">Validation error muncul SEBELUM data disimpan; error message jelas & actionable</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e7eb;">
+                                    <td style="padding: 10px;"><strong>Report Generation</strong></td>
+                                    <td style="padding: 10px;">Derived</td>
+                                    <td style="padding: 10px;">PDF output = data basis tanpa truncation; special chars properly encoded</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px;"><strong>Session Handling</strong></td>
+                                    <td style="padding: 10px;">Specification</td>
+                                    <td style="padding: 10px;">Timeout: 30 menit inactivity; graceful logout; session tidak overlap</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div style="background: #dcfce7; border-left: 4px solid #10b981; padding: 12px; border-radius: 5px; margin-top: 15px; font-size: 0.9em;">
+                            <p><strong>💡 Keuntungan Test Oracle Framework:</strong></p>
+                            <ul style="margin-top: 8px; margin-left: 20px; color: #166534;">
+                                <li><strong>Clear Pass/Fail Criteria:</strong> Tidak ada ambiguitas dalam menentukan hasil test</li>
+                                <li><strong>Reusable Test Cases:</strong> Oracle yang terdefinisi bisa digunakan untuk regression testing</li>
+                                <li><strong>Automated Testing Ready:</strong> Oracle jelas memudahkan test automation dengan assertion yang tepat</li>
+                                <li><strong>Risk Mitigation:</strong> Memastikan setiap bug terdeteksi sebelum mencapai production</li>
+                                <li><strong>QA Guard Integration:</strong> Test Oracle adalah fondasi dari quality gate decision (PASS/FAIL)</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- SECTION: REAL USE CASES -->
