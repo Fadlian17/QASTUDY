@@ -491,6 +491,62 @@
             background: #f9f9f9;
         }
 
+        /* Responsive Table - Mobile Stacked Cards */
+        @media (max-width: 768px) {
+            .info-table {
+                border-collapse: separate;
+                border-spacing: 0;
+                border: none;
+            }
+
+            .info-table thead {
+                display: none;
+            }
+
+            .info-table tbody {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .info-table tr {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 0;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                overflow: hidden;
+                background: white;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            }
+
+            .info-table tr:hover {
+                background: white;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+            }
+
+            .info-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 14px;
+                border-bottom: none;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .info-table td:last-child {
+                border-bottom: none;
+            }
+
+            .info-table td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: #555;
+                margin-right: 12px;
+                min-width: 120px;
+            }
+        }
+
         /* REAL USE CASES SECTION */
         .usecase-grid {
             display: grid;
@@ -785,34 +841,34 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>Business / Project Testing</strong></td>
-                                <td>120 MD</td>
-                                <td>50%</td>
-                                <td>Core testing activities</td>
+                                <td data-label="Work Variable:"><strong>Business / Project Testing</strong></td>
+                                <td data-label="Mandays:">120 MD</td>
+                                <td data-label="Percentage:">50%</td>
+                                <td data-label="Notes:">Core testing activities</td>
                             </tr>
                             <tr>
-                                <td><strong>Test Debt - Automation</strong></td>
-                                <td>20 MD</td>
-                                <td>8.3%</td>
-                                <td>Automation framework improvements</td>
+                                <td data-label="Work Variable:"><strong>Test Debt - Automation</strong></td>
+                                <td data-label="Mandays:">20 MD</td>
+                                <td data-label="Percentage:">8.3%</td>
+                                <td data-label="Notes:">Automation framework improvements</td>
                             </tr>
                             <tr>
-                                <td><strong>Test Debt - Non-Functional</strong></td>
-                                <td>20 MD</td>
-                                <td>8.3%</td>
-                                <td>Performance, Security testing</td>
+                                <td data-label="Work Variable:"><strong>Test Debt - Non-Functional</strong></td>
+                                <td data-label="Mandays:">20 MD</td>
+                                <td data-label="Percentage:">8.3%</td>
+                                <td data-label="Notes:">Performance, Security testing</td>
                             </tr>
                             <tr>
-                                <td><strong>Ceremonial & Others</strong></td>
-                                <td>44 MD</td>
-                                <td>18.3%</td>
-                                <td>Meetings, training, misc tasks</td>
+                                <td data-label="Work Variable:"><strong>Ceremonial & Others</strong></td>
+                                <td data-label="Mandays:">44 MD</td>
+                                <td data-label="Percentage:">18.3%</td>
+                                <td data-label="Notes:">Meetings, training, misc tasks</td>
                             </tr>
                             <tr>
-                                <td><strong>Buffer / Contingency</strong></td>
-                                <td>36 MD</td>
-                                <td>15%</td>
-                                <td>Emergency fixes, ad-hoc requests</td>
+                                <td data-label="Work Variable:"><strong>Buffer / Contingency</strong></td>
+                                <td data-label="Mandays:">36 MD</td>
+                                <td data-label="Percentage:">15%</td>
+                                <td data-label="Notes:">Emergency fixes, ad-hoc requests</td>
                             </tr>
                         </tbody>
                     </table>

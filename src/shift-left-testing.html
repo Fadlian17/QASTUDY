@@ -34,6 +34,13 @@
             color: white;
             padding: 30px 40px;
             text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-content {
+            flex: 1;
         }
 
         .header h1 {
@@ -44,6 +51,36 @@
         .header p {
             font-size: 1.1em;
             opacity: 0.9;
+        }
+
+        .hamburger-menu-slt {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            padding: 5px;
+        }
+
+        .hamburger-menu-slt span {
+            width: 24px;
+            height: 2.5px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu-slt.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger-menu-slt.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu-slt.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
         }
 
         /* NAV TABS */
@@ -490,20 +527,36 @@
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
+            .hamburger-menu-slt {
+                display: flex;
+            }
+
             .header {
-                padding: 20px;
+                padding: 15px 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-content {
+                flex: 1;
             }
 
             .header h1 {
-                font-size: 1.8em;
+                font-size: 1.5em;
+            }
+
+            .header p {
+                font-size: 0.9em;
             }
 
             .nav-tabs {
                 padding: 0 15px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
             }
 
             .content {
-                padding: 20px;
+                padding: 15px;
             }
 
             .phases-grid,
@@ -524,12 +577,16 @@
         <!-- HEADER -->
         <div class="header">
             <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                <button class="back-btn" onclick="backToIndex()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 10px 20px; border-radius: 5px; cursor: pointer;">⬅️ Back to Main Menu</button>
-                <div style="text-align: center; flex: 1;">
+                <button class="hamburger-menu-slt" id="hamburgerBtnSlt" onclick="toggleMobileMenuSlt()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="header-content">
                     <h1>🎯 Shift Left Testing Implementation</h1>
                     <p>Interactive tool untuk menerapkan Shift Left Testing dalam SDLC Anda</p>
                 </div>
-                <div style="width: 150px;"></div> <!-- Spacer for balance -->
+                <button class="back-btn" onclick="backToIndex()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 10px 20px; border-radius: 5px; cursor: pointer;">⬅️ Back</button>
             </div>
         </div>
 
@@ -1323,6 +1380,14 @@
     </div>
 
     <script>
+        // ===== MOBILE MENU FUNCTIONS =====
+        function toggleMobileMenuSlt() {
+            const hamburger = document.getElementById('hamburgerBtnSlt');
+            hamburger.classList.toggle('active');
+            
+            // You can add additional mobile menu functionality here if needed
+        }
+
         // Tab switching
         function switchTab(tabName) {
             // Hide all tabs
