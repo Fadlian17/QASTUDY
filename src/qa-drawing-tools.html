@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="image/logo.svg">
+    <title>QA Drawing Tools - Exploration Canvas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .back-btn, .header-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .back-btn:hover, .header-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* TOOLBAR SIDEBAR */
+        .toolbar {
+            background: white;
+            border-right: 2px solid #e5e7eb;
+            padding: 15px;
+            width: 280px;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .toolbar-section {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .toolbar-section:last-child {
+            border-bottom: none;
+        }
+
+        .toolbar-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #667eea;
+        }
+
+        .frame-buttons, .tool-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .frame-btn, .tool-btn {
+            padding: 8px 12px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .frame-btn:hover, .tool-btn:hover {
+            border-color: #667eea;
+            background: #f0f7ff;
+        }
+
+        .frame-btn.active, .tool-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .control-group {
+            margin: 12px 0;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .control-group input[type="color"] {
+            width: 100%;
+            height: 45px;
+            border: 2px solid #e5e7eb;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .value-display {
+            font-size: 0.75em;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+
+        .btn-clear {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #dc2626;
+        }
+
+        .btn-export {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-export:hover {
+            background: #059669;
+        }
+
+        .btn-undo {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-undo:hover {
+            background: #d97706;
+        }
+
+        /* CANVAS AREA */
+        .canvas-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fafafa;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        .canvas-header {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 8px 8px 0 0;
+            border-bottom: 2px solid #e5e7eb;
+            font-size: 0.9em;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .canvas-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+            padding: 10px;
+        }
+
+        #drawingCanvas {
+            display: block;
+            background: white;
+            cursor: crosshair;
+            max-width: 100%;
+            max-height: 100%;
+            border: 2px solid #e5e7eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* INFO PANEL */
+        .info-panel {
+            background: #f0f7ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 5px;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 0.85em;
+            color: #1e40af;
+        }
+
+        .info-panel strong {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .info-panel ul {
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .toolbar {
+                width: 220px;
+                padding: 12px;
+            }
+
+            .frame-buttons, .tool-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .toolbar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 2px solid #e5e7eb;
+                max-height: 150px;
+                display: flex;
+                gap: 20px;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+
+            .toolbar-section {
+                flex-shrink: 0;
+                border-bottom: none;
+                border-right: 1px solid #e5e7eb;
+                padding-right: 15px;
+            }
+
+            .canvas-area {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <h1>✏️ QA Drawing Tools</h1>
+        <div class="header-actions">
+            <button class="header-btn" onclick="showInfo()">ℹ️ Info</button>
+            <button class="back-btn" onclick="backToDashboard()">⬅️ Back to Dashboard</button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        <!-- TOOLBAR -->
+        <div class="toolbar">
+            <!-- FRAME SELECTION -->
+            <div class="toolbar-section">
+                <div class="toolbar-title">📐 Frames</div>
+                <div class="frame-buttons">
+                    <button class="frame-btn active" onclick="selectFrame('blank')">Blank</button>
+                    <button class="frame-btn" onclick="selectFrame('grid')">Grid</button>
+                    <button class="frame-btn" onclick="selectFrame('lines')">Lines</button>
+                    <button class="frame-btn" onclick="selectFrame('flow')">Flow</button>
+                    <button class="frame-btn" onclick="selectFrame('section')">Section</button>
+                </div>
+            </div>
+
+            <!-- DRAWING TOOLS -->
+            <div class="toolbar-section">
+                <div class="toolbar-title">🎨 Tools</div>
+                <div class="tool-buttons">
+                    <button class="tool-btn active" onclick="selectTool('pen')">✏️ Pen</button>
+                    <button class="tool-btn" onclick="selectTool('eraser')">🧹 Eraser</button>
+                    <button class="tool-btn" onclick="selectTool('text')">📝 Text</button>
+                </div>
+            </div>
+
+            <!-- BRUSH SETTINGS -->
+            <div class="toolbar-section">
+                <div class="toolbar-title">⚙️ Settings</div>
+                
+                <div class="control-group" id="brushSettingsGroup">
+                    <label>Brush Size</label>
+                    <input type="range" id="brushSize" min="1" max="30" value="3" onchange="updateBrushSize()">
+                    <div class="value-display"><span id="brushSizeValue">3</span>px</div>
+                </div>
+
+                <div class="control-group" id="fontSettingsGroup" style="display: none;">
+                    <label>Font Size</label>
+                    <input type="range" id="fontSize" min="8" max="72" value="20" onchange="updateFontSize()">
+                    <div class="value-display"><span id="fontSizeValue">20</span>px</div>
+                </div>
+
+                <div class="control-group" id="textInputGroup" style="display: none;">
+                    <label>Text Input</label>
+                    <textarea id="textInput" placeholder="Masukkan teks..." style="width: 100%; height: 60px; padding: 8px; border: 2px solid #e5e7eb; border-radius: 5px; font-family: Arial; font-size: 0.9em; resize: none;"></textarea>
+                </div>
+
+                <div class="control-group">
+                    <label>Color</label>
+                    <input type="color" id="brushColor" value="#667eea">
+                </div>
+
+                <div class="control-group">
+                    <label>Opacity</label>
+                    <input type="range" id="brushOpacity" min="0" max="100" value="100" onchange="updateOpacity()">
+                    <div class="value-display"><span id="opacityValue">100</span>%</div>
+                </div>
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="toolbar-section">
+                <div class="toolbar-title">📌 Actions</div>
+                <div class="action-buttons">
+                    <button class="action-btn btn-undo" onclick="undoDrawing()">↶ Undo</button>
+                    <button class="action-btn btn-clear" onclick="clearCanvas()">🗑️ Clear All</button>
+                    <button class="action-btn btn-export" onclick="exportCanvas()">⬇️ Export PNG</button>
+                </div>
+            </div>
+
+            <!-- INFO -->
+            <div class="info-panel">
+                <strong>💡 Quick Tips:</strong>
+                <ul>
+                    <li>Choose frame first</li>
+                    <li>Adjust brush settings</li>
+                    <li>Draw your ideas</li>
+                    <li>Export when done</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- CANVAS AREA -->
+        <div class="canvas-area">
+            <div class="canvas-header">
+                📋 <span id="frameTitle">Blank Canvas</span>
+            </div>
+            <div class="canvas-wrapper">
+                <canvas id="drawingCanvas" width="1000" height="700"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== DRAWING CANVAS FUNCTIONALITY =====
+        let isDrawing = false;
+        let currentTool = 'pen';
+        let currentFrame = 'blank';
+        let canvas = null;
+        let ctx = null;
+        let drawingHistory = [];
+        let historyStep = -1;
+
+        function initCanvas() {
+            canvas = document.getElementById('drawingCanvas');
+            ctx = canvas.getContext('2d');
+            
+            // Responsive canvas
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // Event listeners
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            
+            // Touch events
+            canvas.addEventListener('touchstart', handleTouchStart);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('touchend', stopDrawing);
+
+            // Initialize with blank frame
+            selectFrame('blank');
+        }
+
+        function resizeCanvas() {
+            const wrapper = document.querySelector('.canvas-wrapper');
+            const maxWidth = wrapper.clientWidth - 20;
+            const maxHeight = wrapper.clientHeight - 20;
+            
+            if (canvas.width !== maxWidth || canvas.height !== maxHeight) {
+                canvas.width = maxWidth;
+                canvas.height = maxHeight;
+                redrawCanvas();
+            }
+        }
+
+        // ===== FRAME TEMPLATES =====
+        function selectFrame(frame) {
+            currentFrame = frame;
+            
+            // Update button styles
+            document.querySelectorAll('.frame-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            drawingHistory = [];
+            historyStep = -1;
+            redrawCanvas();
+        }
+
+        function redrawCanvas() {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            switch(currentFrame) {
+                case 'blank':
+                    document.getElementById('frameTitle').textContent = 'Blank Canvas';
+                    break;
+                case 'grid':
+                    drawGrid();
+                    document.getElementById('frameTitle').textContent = 'Grid Template';
+                    break;
+                case 'lines':
+                    drawLines();
+                    document.getElementById('frameTitle').textContent = 'Lines Template';
+                    break;
+                case 'flow':
+                    drawFlowDiagram();
+                    document.getElementById('frameTitle').textContent = 'Flow Diagram Template';
+                    break;
+                case 'section':
+                    drawSectionDivide();
+                    document.getElementById('frameTitle').textContent = 'Section Template';
+                    break;
+            }
+            
+            saveCanvasState();
+        }
+
+        function drawGrid() {
+            ctx.strokeStyle = '#e5e7eb';
+            ctx.lineWidth = 1;
+            const gridSize = 25;
+            
+            for (let x = 0; x < canvas.width; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            
+            for (let y = 0; y < canvas.height; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+        }
+
+        function drawLines() {
+            ctx.strokeStyle = '#bfdbfe';
+            ctx.lineWidth = 1;
+            const lineSpacing = 30;
+            
+            for (let y = lineSpacing; y < canvas.height; y += lineSpacing) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+            
+            ctx.strokeStyle = '#3b82f6';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(80, 0);
+            ctx.lineTo(80, canvas.height);
+            ctx.stroke();
+        }
+
+        function drawFlowDiagram() {
+            const boxWidth = 180;
+            const boxHeight = 70;
+            
+            ctx.strokeStyle = '#d1d5db';
+            ctx.lineWidth = 2;
+            ctx.fillStyle = '#f3f4f6';
+            
+            // Start box
+            const startX = canvas.width / 2 - boxWidth / 2;
+            ctx.fillRect(startX, 30, boxWidth, boxHeight);
+            ctx.strokeRect(startX, 30, boxWidth, boxHeight);
+            
+            ctx.fillStyle = '#6b7280';
+            ctx.font = 'bold 14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('START', canvas.width / 2, 75);
+            
+            // Arrow down
+            ctx.strokeStyle = '#9ca3af';
+            ctx.setLineDash([5, 5]);
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, 100);
+            ctx.lineTo(canvas.width / 2, 130);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // Middle boxes
+            ctx.fillStyle = '#f3f4f6';
+            const midBoxY = 130;
+            const leftX = 50;
+            const rightX = canvas.width - 50 - boxWidth;
+            
+            ctx.fillRect(leftX, midBoxY, boxWidth, boxHeight);
+            ctx.strokeRect(leftX, midBoxY, boxWidth, boxHeight);
+            
+            ctx.fillRect(rightX, midBoxY, boxWidth, boxHeight);
+            ctx.strokeRect(rightX, midBoxY, boxWidth, boxHeight);
+            
+            // End box
+            ctx.fillStyle = '#f3f4f6';
+            ctx.fillRect(startX, canvas.height - 100, boxWidth, boxHeight);
+            ctx.strokeRect(startX, canvas.height - 100, boxWidth, boxHeight);
+        }
+
+        function drawSectionDivide() {
+            ctx.strokeStyle = '#9ca3af';
+            ctx.lineWidth = 2;
+            
+            const w = canvas.width / 2;
+            const h = canvas.height / 2;
+            const margin = 15;
+            
+            // Top-left
+            ctx.strokeRect(margin, margin, w - 2 * margin, h - 2 * margin);
+            ctx.fillStyle = '#6b7280';
+            ctx.font = 'bold 14px Arial';
+            ctx.fillText('AREA 1', margin + 20, margin + 30);
+            
+            // Top-right
+            ctx.strokeRect(w + margin, margin, w - 2 * margin, h - 2 * margin);
+            ctx.fillText('AREA 2', w + margin + 20, margin + 30);
+            
+            // Bottom-left
+            ctx.strokeRect(margin, h + margin, w - 2 * margin, h - 2 * margin);
+            ctx.fillText('AREA 3', margin + 20, h + margin + 30);
+            
+            // Bottom-right
+            ctx.strokeRect(w + margin, h + margin, w - 2 * margin, h - 2 * margin);
+            ctx.fillText('AREA 4', w + margin + 20, h + margin + 30);
+        }
+
+        // ===== DRAWING FUNCTIONS =====
+        function selectTool(tool) {
+            currentTool = tool;
+            document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Show/hide settings based on tool
+            if (tool === 'text') {
+                document.getElementById('brushSettingsGroup').style.display = 'none';
+                document.getElementById('fontSettingsGroup').style.display = 'block';
+                document.getElementById('textInputGroup').style.display = 'block';
+                canvas.style.cursor = 'text';
+            } else {
+                document.getElementById('brushSettingsGroup').style.display = 'block';
+                document.getElementById('fontSettingsGroup').style.display = 'none';
+                document.getElementById('textInputGroup').style.display = 'none';
+                canvas.style.cursor = tool === 'pen' ? 'crosshair' : 'cell';
+            }
+        }
+
+        function updateBrushSize() {
+            const size = document.getElementById('brushSize').value;
+            document.getElementById('brushSizeValue').textContent = size;
+        }
+
+        function updateFontSize() {
+            const size = document.getElementById('fontSize').value;
+            document.getElementById('fontSizeValue').textContent = size;
+        }
+
+        function updateOpacity() {
+            const opacity = document.getElementById('brushOpacity').value;
+            document.getElementById('opacityValue').textContent = opacity;
+        }
+
+        function startDrawing(e) {
+            if (currentTool === 'text') {
+                handleTextClick(e);
+                return;
+            }
+            
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            saveCanvasState();
+        }
+
+        function handleTextClick(e) {
+            const textContent = document.getElementById('textInput').value;
+            if (!textContent.trim()) {
+                alert('Silakan masukkan teks terlebih dahulu di Text Input');
+                return;
+            }
+            
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const fontSize = document.getElementById('fontSize').value;
+            const opacity = document.getElementById('brushOpacity').value / 100;
+            
+            ctx.font = fontSize + 'px Arial, sans-serif';
+            ctx.fillStyle = document.getElementById('brushColor').value;
+            ctx.globalAlpha = opacity;
+            ctx.fillText(textContent, x, y);
+            ctx.globalAlpha = 1;
+            
+            saveCanvasState();
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const brushSize = document.getElementById('brushSize').value;
+            const opacity = document.getElementById('brushOpacity').value / 100;
+            
+            if (currentTool === 'pen') {
+                ctx.strokeStyle = document.getElementById('brushColor').value;
+                ctx.globalAlpha = opacity;
+                ctx.lineWidth = brushSize;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            } else if (currentTool === 'eraser') {
+                ctx.globalAlpha = 1;
+                ctx.clearRect(x - brushSize/2, y - brushSize/2, brushSize, brushSize);
+            }
+            
+            ctx.globalAlpha = 1;
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.closePath();
+            saveCanvasState();
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        // ===== CANVAS ACTIONS =====
+        function saveCanvasState() {
+            historyStep++;
+            if (historyStep < drawingHistory.length) {
+                drawingHistory.length = historyStep;
+            }
+            drawingHistory.push(canvas.toDataURL());
+        }
+
+        function undoDrawing() {
+            if (historyStep > 0) {
+                historyStep--;
+                const imageData = new Image();
+                imageData.src = drawingHistory[historyStep];
+                imageData.onload = function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(imageData, 0, 0);
+                }
+            }
+        }
+
+        function clearCanvas() {
+            if (confirm('Apakah Anda yakin ingin menghapus semua gambar?')) {
+                drawingHistory = [];
+                historyStep = -1;
+                redrawCanvas();
+            }
+        }
+
+        function exportCanvas() {
+            const link = document.createElement('a');
+            link.download = 'qa-drawing-' + new Date().getTime() + '.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        function showInfo() {
+            alert('QA Drawing Tools\n\n✏️ Gunakan untuk:\n- Sketsa test flow\n- Risk mapping\n- Test scenarios\n- Dokumentasi\n\n🎨 Fitur:\n- 5 frame templates\n- Pen & Eraser tools\n- Undo functionality\n- Export PNG\n\n📌 Tips:\n- Pilih frame dulu\n- Adjust brush size & color\n- Draw freely\n- Export untuk sharing');
+        }
+
+        function backToDashboard() {
+            if (confirm('Kembali ke dashboard? Gambar yang belum disimpan akan hilang.')) {
+                window.location.href = 'phase1-access-use_case.html';
+            }
+        }
+
+        // Initialize on load
+        window.addEventListener('load', initCanvas);
+    </script>
+</body>
+</html>
