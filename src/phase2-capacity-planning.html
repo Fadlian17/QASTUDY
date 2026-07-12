@@ -418,6 +418,19 @@
             text-align: center;
         }
 
+        .stat-box.light {
+            color: #0f172a;
+        }
+
+        .stat-box.light h4,
+        .stat-box.light p {
+            color: inherit;
+        }
+
+        .stat-box.light h4 {
+            opacity: 1;
+        }
+
         .stat-box h4 {
             font-size: 0.9em;
             opacity: 0.9;
@@ -588,6 +601,7 @@
             <!-- SIDEBAR -->
             <div class="sidebar">
                 <div class="menu-item active" onclick="showSection('overview')">📊 Overview</div>
+                <div class="menu-item" onclick="showSection('cucumber-bdd')">🧪 Cucumber / BDD</div>
                 <div class="menu-item" onclick="showSection('create-plan')">➕ Create Plan</div>
                 <div class="menu-item" onclick="showSection('resource-allocation')">👥 Resource Allocation</div>
                 <div class="menu-item" onclick="showSection('sprint-planning')">🎯 Sprint Planning</div>
@@ -653,6 +667,132 @@
                                 <p style="font-size: 0.9em; color: #666; margin-top: 5px;">160+ jam QA effort</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- CUCUMBER / BDD SECTION -->
+                <div class="section" id="section-cucumber-bdd">
+                    <h2>Behavior Driven Development (BDD)</h2>
+
+                    <div class="alert alert-info">
+                        <strong>✨ Mengapa Cucumber / BDD penting?</strong> Karena Cucumber membantu tim QA dan stakeholder berbicara dalam bahasa yang sama dengan skenario terstruktur, dan membuat pengujian otomatis lebih mudah dipelihara.
+                    </div>
+
+                    <h3>Apa itu BDD?</h3>
+                    <p>Behavior Driven Development (BDD) adalah pendekatan pengembangan yang menekankan kolaborasi antara product owner, QA, dan pengembang. Kunci BDD adalah menulis <strong>scenarios</strong> dalam bahasa alami yang mudah dipahami oleh semua pihak.</p>
+
+                    <h3>Bagaimana Cucumber masuk?</h3>
+                    <p>Cucumber adalah tool BDD populer yang memungkinkan Anda menulis skenario dalam format <strong>Gherkin</strong> seperti <code>Given</code>, <code>When</code>, <code>Then</code>. Cucumber menghubungkan deskripsi bisnis ini dengan kode implementasi langkah (step definitions).</p>
+
+                    <h3>Menghubungkan BDD dengan Capacity Planning</h3>
+                    <p>Di Phase 2, capacity planning QA bisa menjadi lebih terukur jika setiap feature BDD dijadikan dasar estimasi test effort. Setiap scenario membantu mendefinisikan effort otomatisasi, regression, dan verifikasi manual yang harus dimasukkan ke dalam perhitungan mandays dan buffer.</p>
+                    <div style="background: #f8fafc; border: 1px solid #c7d2fe; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                        <h4 style="margin-top: 0;">Contoh perhitungan effort berdasarkan BDD</h4>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.95em;">
+                            <thead>
+                                <tr style="background: #eef2ff;">
+                                    <th style="border: 1px solid #dbeafe; padding: 10px; text-align: left;">Feature</th>
+                                    <th style="border: 1px solid #dbeafe; padding: 10px; text-align: center;">Scenario</th>
+                                    <th style="border: 1px solid #dbeafe; padding: 10px; text-align: center;">Estimate QA Effort</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="border: 1px solid #dbeafe; padding: 10px;">Login dan otentikasi</td>
+                                    <td style="border: 1px solid #dbeafe; padding: 10px; text-align: center;">2 scenario</td>
+                                    <td style="border: 1px solid #dbeafe; padding: 10px; text-align: center;">1.5 mandays</td>
+                                </tr>
+                                <tr style="background: #f8fafc;">
+                                    <td style="border: 1px solid #dbeafe; padding: 10px;">Form input data pengguna</td>
+                                    <td style="border: 1px solid #dbeafe; padding: 10px; text-align: center;">3 scenario</td>
+                                    <td style="border: 1px solid #dbeafe; padding: 10px; text-align: center;">2.0 mandays</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #dbeafe; padding: 10px;">Laporan dashboard</td>
+                                    <td style="border: 1px solid #dbeafe; padding: 10px; text-align: center;">4 scenario</td>
+                                    <td style="border: 1px solid #dbeafe; padding: 10px; text-align: center;">2.5 mandays</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>Menentukan T-Shirt Size dari BDD Scenario</h3>
+                    <p>Di dalam capacity planning Phase 2, setiap feature BDD bisa dipetakan ke ukuran T-Shirt dengan menghitung jumlah scenario dan kompleksitas. Misalnya:</p>
+                    <ul style="margin-bottom: 20px;">
+                        <li><strong>Small</strong>: 1-2 scenario sederhana, otomatisasi kecil, estimasi 20-40 jam.</li>
+                        <li><strong>Medium</strong>: 3-5 scenario dengan data variasi, estimasi 40-80 jam.</li>
+                        <li><strong>Large</strong>: 6-8 scenario kompleks, interaksi UI/API lebih banyak, estimasi 80-160 jam.</li>
+                        <li><strong>XL</strong>: 9+ scenario atau integrasi multi-modul, estimasi 160+ jam.</li>
+                    </ul>
+                    <p>Dengan pendekatan ini, BDD tidak hanya menjadi dokumentasi test; ia juga berfungsi sebagai input nyata untuk alokasi mandays, buffer, dan prioritas sprint planning.</p>
+
+                    <h3>Contoh struktur Cucumber</h3>
+                    <div style="background: #111827; color: #f8fafc; padding: 18px; border-radius: 10px; font-family: monospace; font-size: 0.95em; overflow-x: auto;">
+                        <pre>Feature: Login ke Aplikasi QA
+  Sebagai QA Manager
+  Saya ingin memastikan user dapat login
+  Sehingga akses ke fitur pengujian tersedia
+
+  Scenario: Login berhasil dengan kredensial valid
+    Given pengguna berada di halaman login
+    When pengguna memasukkan username "fadli" dan password "Testing123"
+    Then pengguna melihat dashboard utama dengan pesan "Welcome"</pre>
+                    </div>
+
+                    <h3>Komponen penting Cucumber</h3>
+                    <ul>
+                        <li><strong>Feature file</strong>: File <code>.feature</code> yang berisi behavior dalam Gherkin.</li>
+                        <li><strong>Scenario</strong>: Alur pengujian fungsional yang dapat dipahami bisnis.</li>
+                        <li><strong>Step definitions</strong>: Kode yang menjalankan aksi untuk setiap langkah.</li>
+                        <li><strong>Hooks</strong>: Setup dan teardown sebelum/ sesudah scenario.</li>
+                    </ul>
+
+                    <h3>Contoh step definition sederhana</h3>
+                    <div style="background: #111827; color: #f8fafc; padding: 18px; border-radius: 10px; font-family: monospace; font-size: 0.95em; overflow-x: auto; margin-bottom: 20px;">
+                        <pre>const { Given, When, Then } = require('@cucumber/cucumber');
+
+Given('pengguna berada di halaman login', async function () {
+  await page.goto('https://example.com/login');
+});
+
+When('pengguna memasukkan username {string} dan password {string}', async function (username, password) {
+  await page.fill('#username', username);
+  await page.fill('#password', password);
+  await page.click('#loginButton');
+});
+
+Then('pengguna melihat dashboard utama dengan pesan {string}', async function (message) {
+  await expect(page.locator('.welcome-message')).toContainText(message);
+});</pre>
+                    </div>
+
+                    <h3>Manfaat untuk capacity planning QA</h3>
+                    <div class="card-grid" style="margin-bottom: 20px;">
+                        <div class="stat-box light" style="background: #dbeafe;">
+                            <h4>Kolaborasi Lebih Baik</h4>
+                            <p>BDD membuat tim QA, product owner, dan developer sepakat pada skop testing sebelum alokasi resource dilakukan.</p>
+                        </div>
+                        <div class="stat-box light" style="background: #bbf7d0;">
+                            <h4>Estimasi Lebih Akurat</h4>
+                            <p>Setiap scenario memperjelas test effort sehingga mandays QA dapat dihitung dengan data nyata.</p>
+                        </div>
+                        <div class="stat-box light" style="background: #fde68a;">
+                            <h4>Maintenance Lebih Stabil</h4>
+                            <p>Feature dan scenario yang terdokumentasi membantu perencanaan ulang resource bila scope berubah.</p>
+                        </div>
+                    </div>
+
+                    <h3>Tips implementasi BDD dengan Cucumber</h3>
+                    <ol style="margin-bottom: 20px;">
+                        <li>Mulai dari <strong>business outcome</strong>, bukan dari test case teknis.</li>
+                        <li>Tulis scenario dengan kata sederhana dan jelas.</li>
+                        <li>Jaga feature file tetap ringan dan fokus pada behavior kritis.</li>
+                        <li>Gunakan step definition ulang untuk mencegah duplikasi.</li>
+                        <li>Integrasikan ke pipeline CI sehingga skenario dieksekusi otomatis setiap commit.</li>
+                    </ol>
+
+                    <div class="alert alert-success">
+                        <strong>Pro tip:</strong> untuk tim QA, Cucumber tidak hanya tentang automation. Ini juga alat komunikasi yang mengurangi kesalahpahaman antara QA, developer, dan product owner.
                     </div>
                 </div>
 
