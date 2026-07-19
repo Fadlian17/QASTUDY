@@ -739,6 +739,105 @@
     Then pengguna melihat dashboard utama dengan pesan "Welcome"</pre>
                     </div>
 
+                    <h3>Generator BDD</h3>
+                    <p>Di sini generator BDD berarti mengubah sebuah user story biasa menjadi format Cucumber <code>.feature</code> standar. Hal ini membantu tim capacity planning membangun test scope yang dapat dihitung effort-nya dan dimasukkan ke rencana QA.</p>
+                    <div style="background: #f8fafc; border: 1px solid #c7d2fe; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                        <h4 style="margin-top: 0;">Contoh konversi user story ke Cucumber</h4>
+                        <p>Input berupa user story umum, output berupa feature file dengan struktur:</p>
+                        <pre style="background: #eef2ff; color: #111827; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 0.95em;">const userStory = {
+  title: 'Login ke Aplikasi QA',
+  asA: 'QA Manager',
+  want: 'memastikan user dapat login',
+  soThat: 'akses ke fitur pengujian tersedia',
+  scenarios: [
+    {
+      title: 'Login berhasil dengan kredensial valid',
+      given: 'pengguna berada di halaman login',
+      when: 'pengguna memasukkan username "fadli" dan password "Testing123"',
+      then: 'pengguna melihat dashboard utama dengan pesan "Welcome"'
+    }
+  ]
+};
+
+function generateFeatureFromUserStory(story) {
+  const lines = [
+    `Feature: ${story.title}`,
+    `  As a ${story.asA}`,
+    `  I want ${story.want}`,
+    `  So that ${story.soThat}`,
+    ''
+  ];
+
+  story.scenarios.forEach(s => {
+    lines.push(`Scenario: ${s.title}`);
+    lines.push(`  Given ${s.given}`);
+    lines.push(`  When ${s.when}`);
+    lines.push(`  Then ${s.then}`);
+    lines.push('');
+  });
+
+  return lines.join('\n');
+}
+
+const featureText = generateFeatureFromUserStory(userStory);
+console.log(featureText);</pre>
+                        <p>Hasilnya adalah format Cucumber standar yang bisa dimasukkan ke pipeline BDD dan dipakai untuk estimasi QA effort.</p>
+                        <h4>Contoh input user story teks biasa</h4>
+                        <p>Berikut contoh user story yang ditulis secara alami dan diubah jadi BDD:</p>
+                        <pre style="background: #eef2ff; color: #111827; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 0.95em;">As a QA Manager, I want to ensure users can log in so that they can access the testing dashboard.
+
+Scenario: valid credentials
+Given the user is on the login page
+When the user enters username "fadli" and password "Testing123"
+Then the dashboard should display a welcome message</pre>
+                        <h4>Contoh parser sederhana</h4>
+                        <p>Parser ini mengekstrak user story dari teks biasa dan membentuk struktur yang bisa dikonversi ke Cucumber:</p>
+                        <pre style="background: #eef2ff; color: #111827; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 0.95em;">function parseUserStoryText(text) {
+  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  const story = {
+    title: '',
+    asA: '',
+    want: '',
+    soThat: '',
+    scenarios: []
+  };
+
+  const storyMatch = lines[0].match(/^As a (.*), I want to (.*) so that (.*)\.$/i);
+  if (storyMatch) {
+    story.asA = storyMatch[1];
+    story.want = storyMatch[2];
+    story.soThat = storyMatch[3];
+    story.title = `${story.want.charAt(0).toUpperCase() + story.want.slice(1)}`;
+  }
+
+  let scenario = null;
+  lines.slice(1).forEach(line => {
+    if (line.startsWith('Scenario:')) {
+      if (scenario) story.scenarios.push(scenario);
+      scenario = { title: line.replace('Scenario:', '').trim(), given: '', when: '', then: '' };
+    } else if (line.startsWith('Given')) {
+      scenario.given = line.replace('Given', '').trim();
+    } else if (line.startsWith('When')) {
+      scenario.when = line.replace('When', '').trim();
+    } else if (line.startsWith('Then')) {
+      scenario.then = line.replace('Then', '').trim();
+    }
+  });
+  if (scenario) story.scenarios.push(scenario);
+
+  return story;
+}
+
+const rawText = `As a QA Manager, I want to ensure users can log in so that they can access the testing dashboard.
+
+Scenario: valid credentials
+Given the user is on the login page
+When the user enters username "fadli" and password "Testing123"
+Then the dashboard should display a welcome message`;
+const parsed = parseUserStoryText(rawText);
+console.log(parsed);</pre>
+                    </div>
+
                     <h3>Komponen penting Cucumber</h3>
                     <ul>
                         <li><strong>Feature file</strong>: File <code>.feature</code> yang berisi behavior dalam Gherkin.</li>
